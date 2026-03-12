@@ -234,16 +234,18 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 }
 
 /* ── MICROSCOPY VISUAL (hero right side) ── */
-.research-visual {
+.desktop-only {
   position: absolute; right: 4%; top: 50%;
   transform: translateY(-50%);
-  width: 420px; height: 420px;
   z-index: 5;
+}
+.research-visual {
+  width: 420px; height: 420px;
   animation: floatOrb 8s ease-in-out infinite;
 }
 @keyframes floatOrb {
-  0%, 100% { transform: translateY(-50%); }
-  50%       { transform: translateY(-52%); }
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-16px); }
 }
 
 .micro-frame {
@@ -1033,7 +1035,7 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) {
-  .research-visual { width: 340px; height: 340px; right: 2%; }
+  .research-visual { width: 320px; height: 320px; }
 }
 
 @media (max-width: 900px) {
@@ -1043,8 +1045,8 @@ footer {
   .research-grid { grid-template-columns: 1fr 1fr !important; }
   .contact-grid { grid-template-columns: 1fr; }
   .pi-team-row { flex-direction: column; }
-  .research-visual { width: 260px; height: 260px; right: 2%; opacity: 0.4; }
-  .hero-content { max-width: 58%; }
+  .desktop-only { display: none; }
+  .hero-content { max-width: 100%; }
   .schematic-sub-grid { grid-template-columns: 1fr; }
   .awards-grid { grid-template-columns: 1fr; }
 }
@@ -1058,15 +1060,9 @@ footer {
   .nav-logo-sub { display: none; }
   .nav-logo-dot { width: 6px; height: 6px; }
 
-  /* Hero — full width, hide image */
-  .hero-content {
-    max-width: 100% !important;
-    width: 100% !important;
-    padding: 90px 6% 60px !important;
-  }
-  .research-visual {
-    display: none !important;
-  }
+  /* Hero */
+  .hero-content { padding: 90px 6% 60px !important; }
+  .desktop-only { display: none; }
 
   /* Hero text */
   .hero h1 { font-size: clamp(1.9rem, 9vw, 2.8rem); }
@@ -1213,19 +1209,22 @@ footer {
 
   <!-- Decorative rings -->
   <!-- Real lab microscopy image — hippocampal glia z-stack -->
-  <div class="research-visual">
-    <div class="micro-ring"></div>
-    <div class="micro-ring"></div>
-    <div class="micro-frame">
-      <img src="lab_glia_zstack.gif"
-           alt="Confocal z-stack: hippocampal glial cells — NeuroMeT Lab"
-           onerror="this.src='lab_glia_max.png'"/>
-      <div class="micro-scan"></div>
+  <div class="desktop-only">
+    <div class="research-visual">
+      <div class="micro-ring"></div>
+      <div class="micro-ring"></div>
+      <div class="micro-frame">
+        <img src="lab_glia_zstack.gif"
+             alt="Confocal z-stack: hippocampal glial cells — NeuroMeT Lab"
+             loading="lazy"
+             onerror="this.src='lab_glia_max.png'"/>
+        <div class="micro-scan"></div>
+      </div>
+      <div class="micro-node"></div>
+      <div class="micro-node"></div>
+      <div class="micro-node"></div>
+      <div class="micro-label" style="display:none;"></div>
     </div>
-    <div class="micro-node"></div>
-    <div class="micro-node"></div>
-    <div class="micro-node"></div>
-    <div class="micro-label">Hippocampal Glia · Confocal Z-Stack</div>
   </div>
 
   <a class="hero-scroll" href="#about">
@@ -1267,7 +1266,7 @@ footer {
           <a class="pi-link" href="https://nabi.res.in/profile/scientists?id=MzE5" target="_blank">🏛 NABI Profile</a>
           <a class="pi-link" href="https://scholar.google.com/citations?hl=en&user=9mBXA90AAAAJ" target="_blank">📚 Google Scholar</a>
           <a class="pi-link outline" href="https://www.linkedin.com/in/mohit-kumar-35437164/" target="_blank">🔗 LinkedIn</a>
-          <a class="pi-link outline" href="/cdn-cgi/l/email-protection#9ef3f1f6f7eab0f5ebf3ffecdef0fffcf7b0ecfbedb0f7f0">✉ Email</a>
+          <a class="pi-link outline" href="mailto:mohit.kumar@nabi.res.in">✉ Email</a>
         </div>
       </div>
     </div>
@@ -1648,7 +1647,7 @@ footer {
           <a class="pi-link" href="https://nabi.res.in/profile/scientists?id=MzE5" target="_blank">🏛 NABI Profile</a>
           <a class="pi-link" href="https://scholar.google.com/citations?hl=en&user=9mBXA90AAAAJ" target="_blank">📚 Google Scholar</a>
           <a class="pi-link outline" href="https://www.linkedin.com/in/mohit-kumar-35437164/" target="_blank">🔗 LinkedIn</a>
-          <a class="pi-link outline" href="/cdn-cgi/l/email-protection#18757770716c36736d75796a5876797a71366a7d6b367176">✉ Email</a>
+          <a class="pi-link outline" href="mailto:mohit.kumar@nabi.res.in">✉ Email</a>
         </div>
       </div>
     </div>
@@ -2003,7 +2002,7 @@ footer {
           <div class="c-ic">📧</div>
           <div>
             <h4>Email</h4>
-            <a href="/cdn-cgi/l/email-protection#a2cfcdcacbd68cc9d7cfc3d0e2ccc3c0cb8cd0c7d18ccbcc"><span class="__cf_email__" data-cfemail="1f727077766b31746a727e6d5f717e7d76316d7a6c317671">[email&#160;protected]</span></a>
+            <a href="mailto:mohit.kumar@nabi.res.in">mohit.kumar@nabi.res.in</a>
           </div>
         </div>
         <div class="contact-item">
@@ -2029,7 +2028,7 @@ footer {
       <div class="reveal reveal-delay-1">
         <div class="map-wrap">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.8!2d76.7271!3d30.6958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390feeec4b80003d%3A0xb0ef5dc4b88c6de8!2sNational%20Agri-Food%20and%20Biomanufacturing%20Institute!5e0!3m2!1sen!2sin!4v1680000000000"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.576977546696!2d76.72490937619485!3d30.70207628575673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fef06a20ebf0f%3A0x1e5de3a0d872b4b4!2sNational%20Agri-Food%20Biotechnology%20Institute%2C%20Sector%2081%2C%20Sahibzada%20Ajit%20Singh%20Nagar%2C%20Punjab%20140306!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
@@ -2065,7 +2064,7 @@ footer {
 <!-- Back to top -->
 <a class="back-top" href="#home" id="back-top">↑</a>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ── HERO CANVAS: Animated neural network ──
 (function() {
   const canvas = document.getElementById('hero-canvas');
