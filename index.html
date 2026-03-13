@@ -3,8 +3,66 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NeuroMeT Lab | BRIC-NABI, Mohali</title>
+<title>NeuroMeT Lab | Neuroscience & Immuno-Metabolism | BRIC-NABI, Mohali</title>
+
+<!-- ── SEO ── -->
+<meta name="description" content="NeuroMeT Lab at BRIC-NABI, Mohali investigates how nutrition and metabolism reprogram neuroimmune circuits. Led by Dr. Mohit Kumar, Scientist C. Research in neuroinflammation, immunometabolism, ketogenic diet, and compulsive eating."/>
+<meta name="keywords" content="NeuroMeT Lab, neuroscience, immunometabolism, neuroinflammation, BRIC-NABI, Mohali, Mohit Kumar, ketogenic diet, microglia, neuroimmune, nutritional neuroscience, beta-hydroxybutyrate"/>
+<meta name="author" content="Dr. Mohit Kumar, NeuroMeT Lab"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://kumar-lab.vercel.app"/>
+
+<!-- ── Open Graph (WhatsApp, Facebook, LinkedIn) ── -->
+<meta property="og:type"        content="website"/>
+<meta property="og:url"         content="https://kumar-lab.vercel.app"/>
+<meta property="og:title"       content="NeuroMeT Lab | Neuroscience & Immuno-Metabolism | BRIC-NABI"/>
+<meta property="og:description" content="Investigating how nutrition and metabolism reprogram neuroimmune circuits. Research in neuroinflammation, immunometabolism & compulsive eating. BRIC-NABI, Mohali."/>
+<meta property="og:image"       content="https://raw.githubusercontent.com/nutritionalneurosciencelab/KUMAR_LAB/main/lab_glia_max.png"/>
+<meta property="og:image:width"  content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:site_name"   content="NeuroMeT Lab"/>
+<meta property="og:locale"      content="en_IN"/>
+
+<!-- ── Twitter / X Card ── -->
+<meta name="twitter:card"        content="summary_large_image"/>
+<meta name="twitter:title"       content="NeuroMeT Lab | BRIC-NABI, Mohali"/>
+<meta name="twitter:description" content="Investigating how nutrition and metabolism reprogram neuroimmune circuits. Research in neuroinflammation, immunometabolism & compulsive eating."/>
+<meta name="twitter:image"       content="https://raw.githubusercontent.com/nutritionalneurosciencelab/KUMAR_LAB/main/lab_glia_max.png"/>
+
+<!-- ── Structured Data (Google Knowledge Panel) ── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  "name": "NeuroMeT Lab",
+  "alternateName": "Neuroscience & Immuno-Metabolism Laboratory",
+  "url": "https://kumar-lab.vercel.app",
+  "logo": "https://raw.githubusercontent.com/nutritionalneurosciencelab/KUMAR_LAB/main/lab_glia_max.png",
+  "description": "Research laboratory at BRIC-NABI, Mohali investigating neuroimmunometabolism, nutritional neuroscience, and compulsive eating behaviour.",
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "BRIC-National Agri-Food and Biomanufacturing Institute (NABI)",
+    "url": "https://nabi.res.in"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Sector 81",
+    "addressLocality": "S.A.S. Nagar (Mohali)",
+    "addressRegion": "Punjab",
+    "postalCode": "140306",
+    "addressCountry": "IN"
+  },
+  "member": {
+    "@type": "Person",
+    "name": "Dr. Mohit Kumar",
+    "jobTitle": "Scientist C, Principal Investigator",
+    "sameAs": "https://scholar.google.com/citations?user=9mBXA90AAAAJ"
+  }
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>"/>
+<meta name="theme-color" content="#0d1b35"/>
 <style>
 :root {
   --navy:    #0d1b35;
@@ -2027,7 +2085,7 @@ footer {
 <!-- Back to top -->
 <a class="back-top" href="#home" id="back-top">↑</a>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ── HERO CANVAS: Animated neural network ──
 (function() {
   const canvas = document.getElementById('hero-canvas');
@@ -2325,7 +2383,11 @@ lbPrev.addEventListener('click', (e) => {
 });
 lbNext.addEventListener('click', (e) => {
   e.stopPropagation();
- 
+  lbIndex = (lbIndex + 1) % lbImages.length;
+  lbImg.src = lbImages[lbIndex];
+});
+</script>
+
 <!-- ── SUPABASE LIVE DATA ── -->
 <script>
 const SUPA_URL  = 'https://ivastnwynlrprsrjxtob.supabase.co';
