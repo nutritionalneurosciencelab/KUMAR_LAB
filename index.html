@@ -2470,8 +2470,12 @@ const FALLBACK_TEAM = [
 ];
 
 async function loadTeam() {
-  // Use fallback directly — team rarely changes, admin panel updates fallback manually
-  const members = FALLBACK_TEAM;
+  // Fetch from Supabase first, use fallback if empty or failed
+  let members = await sbFetch('team', 'sort_order.asc');
+  if (!members || members.length === 0) {
+    members = FALLBACK_TEAM;
+  }
+  
   const grid = document.getElementById('member-grid');
   if (!grid) return;
 
