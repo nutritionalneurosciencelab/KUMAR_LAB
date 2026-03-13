@@ -2583,11 +2583,47 @@ async function loadAwards() {
 }
 
 // Run all on load — fully non-blocking, page renders immediately
-window.addEventListener('load', () => {
+// Show fallback team immediately, then replace with live data
+document.addEventListener('DOMContentLoaded', () => {
+  // Render fallback instantly so team is never empty
+  const grid = document.getElementById('member-grid');
+  if (grid) {
+    const delays = ['','reveal-delay-1','reveal-delay-2','reveal-delay-3','reveal-delay-4',''];
+    grid.innerHTML = FALLBACK_TEAM.map((m, i) => {
+      const ini = initials(m.name);
+      const photo = m.photo_url
+        ? `<img src="${m.photo_url}" alt="${m.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">${ini}</div>`
+        : `<div class="init">${ini}</div>`;
+      return `
+        <div class="mc reveal ${delays[i % delays.length]}">
+          <div class="mc-photo">${photo}</div>
+          <div class="mc-info">
+            <div class="mc-name">${m.name}</div>
+            <div class="mc-role">${m.role}</div>
+            ${m.fellowship ? `<div class="mc-fellowship">${m.fellowship}</div>` : ''}
+          </div>
+        </div>`;
+    }).join('') + `
+      <a class="mc reveal" href="https://forms.gle/q8cQMdwXtGKwGqa49" target="_blank"
+         style="border-style:dashed;background:transparent;text-decoration:none;cursor:pointer;">
+        <div class="mc-photo" style="background:linear-gradient(135deg,#eef2f7,#e0e8f4);">
+          <div class="init" style="color:#94a3b8;font-size:2.8rem;">+</div>
+        </div>
+        <div class="mc-info">
+          <div class="mc-name" style="color:var(--accent);">Join the Group</div>
+          <div class="mc-role" style="color:var(--muted);">Open Positions</div>
+          <div class="mc-fellowship">PhD · Postdoc · Intern · JRF</div>
+          <div style="margin-top:10px;font-size:0.7rem;color:var(--accent);font-weight:600;">Apply Here →</div>
+        </div>
+      </a>`;
+    document.querySelectorAll('#member-grid .reveal').forEach(el => observer && observer.observe(el));
+  }
+
+  // Then fetch live data from Supabase in background
   setTimeout(() => {
     loadTeam().catch(() => {});
     loadNews().catch(() => {});
     loadAwards().catch(() => {});
-  }, 100);
+  }, 300);
 });
 </script>
