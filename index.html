@@ -1167,9 +1167,14 @@ footer {
   .schematic-wrap { padding: 12px; }
 }
 
-/* Mobile nav open */
+/* Mobile nav open — bulletproof: hidden by default with zero physical presence */
 .nav-mobile {
   display: none;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
   position: fixed; top: 60px; left: 0; right: 0;
   background: rgba(10,20,42,0.99);
   backdrop-filter: blur(16px);
@@ -1181,8 +1186,17 @@ footer {
 }
 .nav-mobile.open {
   display: block;
+  visibility: visible;
+  height: auto;
+  overflow: visible;
+  padding: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   opacity: 1;
   transform: translateY(0);
+}
+/* Force-hide nav-mobile on screens wider than mobile breakpoint */
+@media (min-width: 641px) {
+  .nav-mobile { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }  
 }
 .nav-mobile a {
   display: flex; align-items: center; gap: 10px;
@@ -1760,11 +1774,7 @@ footer {
 
     <div class="team-label reveal">Research Scholars</div>
     <div class="member-grid" id="member-grid">
-      <!-- Populated dynamically from Supabase -->
-      <div class="mc reveal" style="opacity:0.4; pointer-events:none;">
-        <div class="mc-photo"><div class="init">…</div></div>
-        <div class="mc-info"><div class="mc-name">Loading…</div></div>
-      </div>
+      <!-- Rendered statically for instant paint; JS may refresh from Supabase -->
     </div>
   </div>
 
@@ -2010,7 +2020,7 @@ footer {
     <div class="section-eyebrow reveal">Recognition</div>
     <div class="section-heading reveal">Awards &amp; Funding</div>
     <div id="awards-grid" class="awards-grid">
-      <div class="section-body reveal"><p>Loading…</p></div>
+      <div class="section-body reveal"><p>Details to be updated shortly.</p></div>
     </div>
   </div>
 
@@ -2398,7 +2408,7 @@ lbNext.addEventListener('click', (e) => {
 });
 </script>
 
-<!-- ── SUPABASE LIVE DATA v3 ── -->
+<!-- ── SUPABASE LIVE DATA v4 ── -->
 <script>
 const SUPA_URL  = 'https://ivastnwynlrprsrjxtob.supabase.co';
 const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2YXN0bnd5bmxycHJzcmp4dG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNjc2MTQsImV4cCI6MjA4ODk0MzYxNH0.ZXDS62ZhwZoPCEzVZi-QISxPpq74Zcr0IvfP-5OjDFw';
@@ -2528,11 +2538,6 @@ async function loadNews() {
   });
 
   document.querySelectorAll('#news-grid .reveal').forEach(el => observer && observer.observe(el));
-}
-    prev && prev.addEventListener('click', () => go(cur - 1));
-    next && next.addEventListener('click', () => go(cur + 1));
-    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
-  });
 }
 
 // ── AWARDS ────────────────────────────────────────
