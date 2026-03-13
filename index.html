@@ -1275,23 +1275,7 @@ footer {
   </div>
 </nav>
 
-<!-- Mobile nav -->
-<div class="nav-mobile" id="nav-mobile">
-  <div class="nav-mobile-header">
-    <span class="nav-logo-dot" style="width:7px;height:7px;"></span>
-    <div>
-      <div class="nav-mobile-brand">NeuroMeT Lab</div>
-      <div class="nav-mobile-sub">Neuroscience &amp; Immuno-Metabolism Lab · BRIC-NABI</div>
-    </div>
-  </div>
-  <a href="#about"        class="nav-mob-link">🔬 About</a>
-  <a href="#research"     class="nav-mob-link">🧠 Research</a>
-  <a href="#team"         class="nav-mob-link">👥 Team</a>
-  <a href="#publications" class="nav-mob-link">📄 Publications</a>
-  <a href="#news"         class="nav-mob-link">📰 News</a>
-  <a href="#awards"       class="nav-mob-link">🏆 Awards &amp; Funding</a>
-  <a href="#contact"      class="nav-mob-link">📍 Contact</a>
-</div>
+<!-- Mobile nav: created dynamically by JS to prevent white-bar on desktop -->
 
 <!-- ── HERO ── -->
 <div class="hero" id="home">
@@ -2287,33 +2271,65 @@ document.querySelectorAll('.tag').forEach(tag => {
   });
 });
 
-// ── MOBILE NAV TOGGLE ──
+// ── MOBILE NAV (created dynamically — never in static HTML) ──
 const navToggle = document.getElementById('nav-toggle');
-const navMobile = document.getElementById('nav-mobile');
+let navMobile = null; // created on first toggle click
+
+function createMobileNav() {
+  if (navMobile) return navMobile;
+  const div = document.createElement('div');
+  div.className = 'nav-mobile';
+  div.id = 'nav-mobile';
+  div.innerHTML = `
+    <div class="nav-mobile-header">
+      <span class="nav-logo-dot" style="width:7px;height:7px;"></span>
+      <div>
+        <div class="nav-mobile-brand">NeuroMeT Lab</div>
+        <div class="nav-mobile-sub">Neuroscience &amp; Immuno-Metabolism Lab · BRIC-NABI</div>
+      </div>
+    </div>
+    <a href="#about"        class="nav-mob-link">🔬 About</a>
+    <a href="#research"     class="nav-mob-link">🧠 Research</a>
+    <a href="#team"         class="nav-mob-link">👥 Team</a>
+    <a href="#publications" class="nav-mob-link">📄 Publications</a>
+    <a href="#news"         class="nav-mob-link">📰 News</a>
+    <a href="#awards"       class="nav-mob-link">🏆 Awards &amp; Funding</a>
+    <a href="#contact"      class="nav-mob-link">📍 Contact</a>`;
+  document.body.insertBefore(div, document.querySelector('.hero'));
+  // Attach close listeners to links
+  div.querySelectorAll('.nav-mob-link').forEach(a => {
+    a.addEventListener('click', closeMobileNav);
+  });
+  navMobile = div;
+  return div;
+}
 
 function openMobileNav() {
-  navMobile.classList.add('open');
+  const nav = createMobileNav();
+  // Force reflow then add open class for transition
+  nav.style.display = 'block';
+  nav.offsetHeight; // trigger reflow
+  nav.classList.add('open');
   navToggle.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeMobileNav() {
+  if (!navMobile) return;
   navMobile.classList.remove('open');
   navToggle.classList.remove('open');
   document.body.style.overflow = '';
+  // After transition, hide completely
+  setTimeout(() => { if (navMobile && !navMobile.classList.contains('open')) navMobile.style.display = 'none'; }, 300);
 }
 
 navToggle.addEventListener('click', () => {
-  navMobile.classList.contains('open') ? closeMobileNav() : openMobileNav();
-});
-
-// Close when any link is tapped
-document.querySelectorAll('.nav-mob-link').forEach(a => {
-  a.addEventListener('click', closeMobileNav);
+  if (navMobile && navMobile.classList.contains('open')) closeMobileNav();
+  else openMobileNav();
 });
 
 // Close when tapping outside
 document.addEventListener('click', (e) => {
-  if (navMobile.classList.contains('open') &&
+  if (navMobile && navMobile.classList.contains('open') &&
       !navMobile.contains(e.target) &&
       !navToggle.contains(e.target)) {
     closeMobileNav();
@@ -2321,15 +2337,15 @@ document.addEventListener('click', (e) => {
 });
 
 // Highlight active section in mobile nav on scroll
-const mobLinks = document.querySelectorAll('.nav-mob-link');
 function updateMobActive() {
-  const sections = ['about','research','team','publications','news','awards','contact'];
+  if (!navMobile) return;
+  const sects = ['about','research','team','publications','news','awards','contact'];
   let current = '';
-  sections.forEach(id => {
+  sects.forEach(id => {
     const el = document.getElementById(id);
     if (el && window.scrollY >= el.offsetTop - 100) current = id;
   });
-  mobLinks.forEach(a => {
+  navMobile.querySelectorAll('.nav-mob-link').forEach(a => {
     a.classList.toggle('active', a.getAttribute('href') === '#' + current);
   });
 }
