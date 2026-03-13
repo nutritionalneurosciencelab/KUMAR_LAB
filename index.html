@@ -1924,7 +1924,7 @@ footer {
           <div class="c-ic">📧</div>
           <div>
             <h4>Email</h4>
-            <a href="mailto:mohit.kumar@nabi.res.in">mohit.kumar@nabi.res.in</a>
+            <a href="/cdn-cgi/l/email-protection#4b262423223f65203e262a390b252a292265392e38652225"><span class="__cf_email__" data-cfemail="5b363433322f75302e363a291b353a393275293e28753235">[email&#160;protected]</span></a>
           </div>
         </div>
         <div class="contact-item">
@@ -1986,7 +1986,7 @@ footer {
 <!-- Back to top -->
 <a class="back-top" href="#home" id="back-top">↑</a>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── HERO CANVAS: Animated neural network ──
 (function() {
   const canvas = document.getElementById('hero-canvas');
@@ -2253,12 +2253,21 @@ const SUPA_URL  = 'https://ivastnwynlrprsrjxtob.supabase.co';
 const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2YXN0bnd5bmxycHJzcmp4dG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNjc2MTQsImV4cCI6MjA4ODk0MzYxNH0.ZXDS62ZhwZoPCEzVZi-QISxPpq74Zcr0IvfP-5OjDFw';
 
 async function sbFetch(table, order) {
-  const url = `${SUPA_URL}/rest/v1/${table}?select=*&order=${order}`;
-  const res = await fetch(url, {
-    headers: { apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY }
-  });
-  if (!res.ok) return [];
-  return res.json();
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4000);
+    const url = `${SUPA_URL}/rest/v1/${table}?select=*&order=${order}`;
+    const res = await fetch(url, {
+      headers: { apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY },
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (e) {
+    console.warn('Supabase fetch failed for', table, e.message);
+    return [];
+  }
 }
 
 function initials(name) {
@@ -2266,10 +2275,20 @@ function initials(name) {
 }
 
 // ── TEAM ──────────────────────────────────────────
+const FALLBACK_TEAM = [
+  { name:'Babita Bhatt',       role:'Research Scholar', fellowship:'WISE PhD',      photo_url:'team_babita.jpeg' },
+  { name:'Chitralekha Gusain', role:'Research Scholar', fellowship:'NABI Core SRF', photo_url:'team_chitra.jpeg' },
+  { name:'Arunima Das',        role:'Research Scholar', fellowship:'UGC JRF',       photo_url:'team_arunima.jpeg' },
+  { name:'Gauri Chaudhari',    role:'Research Scholar', fellowship:'UGC JRF',       photo_url:'team_gauri.jpeg' },
+  { name:'Sumit Sutariya',     role:'Research Scholar', fellowship:'DBT JRF',       photo_url:'team_sumit.jpeg' },
+  { name:'Vaishnavi Chaubey',  role:'Research Scholar', fellowship:'PRS 1',         photo_url:'team_vaishnavi.jpeg' },
+];
+
 async function loadTeam() {
-  const members = await sbFetch('team', 'sort_order.asc');
+  let members = await sbFetch('team', 'sort_order.asc');
+  if (!members.length) members = FALLBACK_TEAM;
   const grid = document.getElementById('member-grid');
-  if (!grid || !members.length) return;
+  if (!grid) return;
 
   const delays = ['','reveal-delay-1','reveal-delay-2','reveal-delay-3','reveal-delay-4',''];
   grid.innerHTML = members.map((m, i) => {
@@ -2403,10 +2422,12 @@ async function loadAwards() {
   document.querySelectorAll('#awards-grid .reveal').forEach(el => observer && observer.observe(el));
 }
 
-// Run all on load
-document.addEventListener('DOMContentLoaded', () => {
-  loadTeam();
-  loadNews();
-  loadAwards();
+// Run all on load — fully non-blocking, page renders immediately
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    loadTeam().catch(() => {});
+    loadNews().catch(() => {});
+    loadAwards().catch(() => {});
+  }, 100);
 });
 </script>
