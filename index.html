@@ -700,17 +700,13 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 .aw {
   background: var(--white);
   border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
   border-radius: 10px;
   padding: 22px 24px 22px 28px;
   position: relative; overflow: hidden;
   transition: all 0.3s ease;
 }
-.aw::before {
-  content: '';
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 4px;
-  background: linear-gradient(to bottom, var(--gold), var(--gold2));
-}
+.aw::before { display: none; }
 .aw:hover {
   box-shadow: 0 8px 24px rgba(13,27,53,0.1);
   transform: translateY(-3px);
@@ -727,6 +723,7 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
   margin-bottom: 8px; line-height: 1.4;
 }
 .aw-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+.aw-org  { font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 4px; }
 
 /* ── ALUMNI ── */
 .alumni-grid {
@@ -1266,7 +1263,7 @@ footer {
           <a class="pi-link" href="https://nabi.res.in/profile/scientists?id=MzE5" target="_blank">🏛 NABI Profile</a>
           <a class="pi-link" href="https://scholar.google.com/citations?hl=en&user=9mBXA90AAAAJ" target="_blank">📚 Google Scholar</a>
           <a class="pi-link outline" href="https://www.linkedin.com/in/mohit-kumar-35437164/" target="_blank">🔗 LinkedIn</a>
-          <a class="pi-link outline" href="mailto:mohit.kumar@nabi.res.in">✉ Email</a>
+          <a class="pi-link outline" href="/cdn-cgi/l/email-protection#90fdfff8f9e4befbe5fdf1e2d0fef1f2f9bee2f5e3bef9fe">✉ Email</a>
         </div>
       </div>
     </div>
@@ -1647,95 +1644,18 @@ footer {
           <a class="pi-link" href="https://nabi.res.in/profile/scientists?id=MzE5" target="_blank">🏛 NABI Profile</a>
           <a class="pi-link" href="https://scholar.google.com/citations?hl=en&user=9mBXA90AAAAJ" target="_blank">📚 Google Scholar</a>
           <a class="pi-link outline" href="https://www.linkedin.com/in/mohit-kumar-35437164/" target="_blank">🔗 LinkedIn</a>
-          <a class="pi-link outline" href="mailto:mohit.kumar@nabi.res.in">✉ Email</a>
+          <a class="pi-link outline" href="/cdn-cgi/l/email-protection#15787a7d7c613b7e60787467557b74777c3b6770663b7c7b">✉ Email</a>
         </div>
       </div>
     </div>
 
     <div class="team-label reveal">Research Scholars</div>
-    <div class="member-grid">
-
-      <div class="mc reveal">
-        <div class="mc-photo"><img src="team_babita.jpeg" alt="Babita Bhatt" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">BB</div></div>
-        <div class="mc-info">
-          <div class="mc-name">Babita Bhatt</div>
-          <div class="mc-role">Research Scholar</div>
-          <div class="mc-fellowship">WISE PhD</div>
-          <div class="mc-links">
-            <a class="mc-link" href="https://www.linkedin.com/in/babita-bhatt-04b22712a/" target="_blank">🔗 LinkedIn</a>
-          </div>
-        </div>
+    <div class="member-grid" id="member-grid">
+      <!-- Populated dynamically from Supabase -->
+      <div class="mc reveal" style="opacity:0.4; pointer-events:none;">
+        <div class="mc-photo"><div class="init">…</div></div>
+        <div class="mc-info"><div class="mc-name">Loading…</div></div>
       </div>
-
-      <div class="mc reveal reveal-delay-1">
-        <div class="mc-photo"><img src="team_chitra.jpeg" alt="Chitralekha Gusain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">CG</div></div>
-        <div class="mc-info">
-          <div class="mc-name">Chitra Gusain</div>
-          <div class="mc-role">Research Scholar</div>
-          <div class="mc-fellowship">NABI Core SRF</div>
-          <div class="mc-links">
-            <a class="mc-link" href="https://www.linkedin.com/in/chitra-gusain-558417225/" target="_blank">🔗 LinkedIn</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="mc reveal reveal-delay-2">
-        <div class="mc-photo"><img src="team_arunima.jpeg" alt="Arunima Das" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">AD</div></div>
-        <div class="mc-info">
-          <div class="mc-name">Arunima Das</div>
-          <div class="mc-role">Research Scholar</div>
-          <div class="mc-fellowship">UGC JRF</div>
-          <div class="mc-links">
-            <a class="mc-link" href="https://www.linkedin.com/in/arunima-das-993512319/" target="_blank">🔗 LinkedIn</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="mc reveal reveal-delay-3">
-        <div class="mc-photo"><img src="team_gauri.jpeg" alt="Gauri Chaudhari" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">GC</div></div>
-        <div class="mc-info">
-          <div class="mc-name">Gauri Chaudhari</div>
-          <div class="mc-role">Research Scholar</div>
-          <div class="mc-fellowship">UGC JRF</div>
-          <div class="mc-links">
-            <a class="mc-link" href="https://www.linkedin.com/in/gauri-chaudhari-58417225a/" target="_blank">🔗 LinkedIn</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="mc reveal reveal-delay-4">
-        <div class="mc-photo"><img src="team_sumit.jpeg" alt="Sumit Sutariya" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">SS</div></div>
-        <div class="mc-info">
-          <div class="mc-name">Sumit Sutariya</div>
-          <div class="mc-role">Research Scholar</div>
-          <div class="mc-fellowship">DBT JRF</div>
-          <div class="mc-links">
-            <a class="mc-link" href="https://www.linkedin.com/in/sumit-sutariya-2827aa1b0/" target="_blank">🔗 LinkedIn</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="mc reveal">
-        <div class="mc-photo"><img src="team_vaishnavi.jpeg" alt="Vaishnavi Chaubey" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">VC</div></div>
-        <div class="mc-info">
-          <div class="mc-name">Vaishnavi Chaubey</div>
-          <div class="mc-role">Research Scholar</div>
-          <div class="mc-fellowship">PRS 1</div>
-        </div>
-      </div>
-
-      <a class="mc reveal" href="https://forms.gle/q8cQMdwXtGKwGqa49" target="_blank" style="border-style:dashed; background:transparent; text-decoration:none; cursor:pointer;">
-        <div class="mc-photo" style="background: linear-gradient(135deg,#eef2f7,#e0e8f4);">
-          <div class="init" style="color:#94a3b8; font-size:2.8rem;">+</div>
-        </div>
-        <div class="mc-info">
-          <div class="mc-name" style="color:var(--accent);">Join the Group</div>
-          <div class="mc-role" style="color:var(--muted);">Open Positions</div>
-          <div class="mc-fellowship">PhD · Postdoc · Intern · JRF</div>
-          <div style="margin-top:10px; font-size:0.7rem; color:var(--accent); font-weight:600;">Apply Here →</div>
-        </div>
-      </a>
-
     </div>
   </div>
 
@@ -1980,7 +1900,9 @@ footer {
   <div class="section" id="awards">
     <div class="section-eyebrow reveal">Recognition</div>
     <div class="section-heading reveal">Awards &amp; Funding</div>
-    <div class="section-body reveal"><p>Details to be updated shortly.</p></div>
+    <div id="awards-grid" class="awards-grid">
+      <div class="section-body reveal"><p>Loading…</p></div>
+    </div>
   </div>
 
   <!-- ── CONTACT ── -->
@@ -2324,15 +2246,167 @@ lbPrev.addEventListener('click', (e) => {
 });
 lbNext.addEventListener('click', (e) => {
   e.stopPropagation();
-  lbIndex = (lbIndex + 1) % lbImages.length;
-  lbImg.src = lbImages[lbIndex];
-});
-document.addEventListener('keydown', (e) => {
-  if (!lightbox.classList.contains('open')) return;
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft') lbPrev.click();
-  if (e.key === 'ArrowRight') lbNext.click();
+ 
+<!-- ── SUPABASE LIVE DATA ── -->
+<script>
+const SUPA_URL  = 'https://ivastnwynlrprsrjxtob.supabase.co';
+const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2YXN0bnd5bmxycHJzcmp4dG9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNjc2MTQsImV4cCI6MjA4ODk0MzYxNH0.ZXDS62ZhwZoPCEzVZi-QISxPpq74Zcr0IvfP-5OjDFw';
+
+async function sbFetch(table, order) {
+  const url = `${SUPA_URL}/rest/v1/${table}?select=*&order=${order}`;
+  const res = await fetch(url, {
+    headers: { apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY }
+  });
+  if (!res.ok) return [];
+  return res.json();
+}
+
+function initials(name) {
+  return name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+}
+
+// ── TEAM ──────────────────────────────────────────
+async function loadTeam() {
+  const members = await sbFetch('team', 'sort_order.asc');
+  const grid = document.getElementById('member-grid');
+  if (!grid || !members.length) return;
+
+  const delays = ['','reveal-delay-1','reveal-delay-2','reveal-delay-3','reveal-delay-4',''];
+  grid.innerHTML = members.map((m, i) => {
+    const ini = initials(m.name);
+    const photo = m.photo_url
+      ? `<img src="${m.photo_url}" alt="${m.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">${ini}</div>`
+      : `<div class="init">${ini}</div>`;
+    return `
+      <div class="mc reveal ${delays[i % delays.length]}">
+        <div class="mc-photo">${photo}</div>
+        <div class="mc-info">
+          <div class="mc-name">${m.name}</div>
+          <div class="mc-role">${m.role}</div>
+          ${m.fellowship ? `<div class="mc-fellowship">${m.fellowship}</div>` : ''}
+        </div>
+      </div>`;
+  }).join('') + `
+      <a class="mc reveal" href="https://forms.gle/q8cQMdwXtGKwGqa49" target="_blank"
+         style="border-style:dashed;background:transparent;text-decoration:none;cursor:pointer;">
+        <div class="mc-photo" style="background:linear-gradient(135deg,#eef2f7,#e0e8f4);">
+          <div class="init" style="color:#94a3b8;font-size:2.8rem;">+</div>
+        </div>
+        <div class="mc-info">
+          <div class="mc-name" style="color:var(--accent);">Join the Group</div>
+          <div class="mc-role" style="color:var(--muted);">Open Positions</div>
+          <div class="mc-fellowship">PhD · Postdoc · Intern · JRF</div>
+          <div style="margin-top:10px;font-size:0.7rem;color:var(--accent);font-weight:600;">Apply Here →</div>
+        </div>
+      </a>`;
+
+  // re-trigger reveal observer on new elements
+  document.querySelectorAll('#member-grid .reveal').forEach(el => observer && observer.observe(el));
+}
+
+// ── NEWS ──────────────────────────────────────────
+async function loadNews() {
+  const items = await sbFetch('news', 'sort_order.desc');
+  const grid  = document.getElementById('news-grid');
+  if (!grid || !items.length) return;
+
+  const newHTML = items.map(item => {
+    const imgs  = item.images || [];
+    const thumb = imgs[0] || '';
+    const dots  = imgs.map((_, di) =>
+      `<button class="gallery-dot${di===0?' active':''}" data-idx="${di}"></button>`
+    ).join('');
+    return `
+      <div class="news-card reveal">
+        <div class="news-card-gallery">
+          <img src="${thumb}" alt="${item.title}" class="active" onerror="this.parentElement.style.background='#1a2a44'"/>
+          ${imgs.slice(1).map(u => `<img src="${u}" alt="" class="hidden"/>`).join('')}
+          ${imgs.length > 1 ? `<span class="gallery-count">1 / ${imgs.length}</span>` : ''}
+          <div class="gallery-dots">${dots}</div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-meta">
+            <span class="news-date">${item.date_range}${item.location ? ' · ' + item.location : ''}</span>
+            <span class="news-badge conference">Event</span>
+          </div>
+          <div class="news-title">${item.title}</div>
+          <div class="news-body">
+            ${item.description}
+            ${item.acknowledgements ? `<div class="news-thanks" style="margin-top:12px;"><strong>Acknowledgements:</strong> ${item.acknowledgements}</div>` : ''}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  grid.insertAdjacentHTML('afterbegin', newHTML);
+
+  // Init gallery dots for newly added cards
+  grid.querySelectorAll('.news-card').forEach(card => {
+    const imgs  = card.querySelectorAll('.news-card-gallery img');
+    const dots  = card.querySelectorAll('.gallery-dot');
+    const count = card.querySelector('.gallery-count');
+    if (imgs.length < 2) return;
+    let cur = 0;
+    function go(n) {
+      imgs[cur].className = 'hidden';
+      cur = (n + imgs.length) % imgs.length;
+      imgs[cur].className = 'active';
+      dots.forEach((d,i) => d.classList.toggle('active', i===cur));
+      if (count) count.textContent = `${cur+1} / ${imgs.length}`;
+    }
+    dots.forEach((d,i) => d.addEventListener('click', () => go(i)));
+  });
+
+  document.querySelectorAll('#news-grid .reveal').forEach(el => observer && observer.observe(el));
+}
+    prev && prev.addEventListener('click', () => go(cur - 1));
+    next && next.addEventListener('click', () => go(cur + 1));
+    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+  });
+}
+
+// ── AWARDS ────────────────────────────────────────
+async function loadAwards() {
+  const items = await sbFetch('awards', 'sort_order.desc');
+  const grid  = document.getElementById('awards-grid');
+  if (!grid) return;
+
+  if (!items.length) {
+    grid.innerHTML = '<div class="section-body"><p>Details to be updated shortly.</p></div>';
+    return;
+  }
+
+  const icons = { award: '🏆', grant: '💰', fellowship: '🎓' };
+  const colors = { award: '#d4921a', grant: '#0d9488', fellowship: '#1a6fd4' };
+
+  const grouped = { award: [], grant: [], fellowship: [] };
+  items.forEach(item => { if (grouped[item.type]) grouped[item.type].push(item); });
+
+  const labels = { award: 'Awards', grant: 'Grants & Funding', fellowship: 'Fellowships' };
+
+  grid.innerHTML = Object.entries(grouped).map(([type, group]) => {
+    if (!group.length) return '';
+    return `
+      <div style="margin-bottom:32px;">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:14px;">
+          ${icons[type]} ${labels[type]}
+        </div>
+        ${group.map(item => `
+          <div class="aw reveal" style="border-left-color:${colors[type]}">
+            <div class="aw-title">${item.title}</div>
+            <div class="aw-org">${item.org}${item.year ? ' · ' + item.year : ''}${item.recipient ? ' · ' + item.recipient : ''}</div>
+            ${item.amount ? `<div style="font-size:0.78rem;color:${colors[type]};font-weight:600;margin-top:4px;">${item.amount}</div>` : ''}
+          </div>`).join('')}
+      </div>`;
+  }).join('');
+
+  document.querySelectorAll('#awards-grid .reveal').forEach(el => observer && observer.observe(el));
+}
+
+// Run all on load
+document.addEventListener('DOMContentLoaded', () => {
+  loadTeam();
+  loadNews();
+  loadAwards();
 });
 </script>
-</body>
-</html>
