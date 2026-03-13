@@ -1209,8 +1209,8 @@ footer {
 .nav-mobile a {
   display: flex; align-items: center; gap: 10px;
   padding: 14px 6%;
-  font-size: 0.88rem; font-weight: 500;
-  color: rgba(255,255,255,0.65);
+  font-size: 0.88rem; font-weight: 600;
+  color: var(--navy);
   text-decoration: none;
   letter-spacing: 0.04em; text-transform: uppercase;
   border-left: 3px solid transparent;
@@ -1218,9 +1218,9 @@ footer {
 }
 .nav-mobile a:hover,
 .nav-mobile a.active {
-  color: #fff;
+  color: var(--accent);
   border-left-color: var(--gold);
-  background: rgba(255,255,255,0.04);
+  background: var(--light);
 }
 .nav-mobile-header {
   display: flex; align-items: center; gap: 10px;
@@ -1404,137 +1404,7 @@ footer {
 
     <!-- ── SCHEMATIC 1: Nutrition → Microglia → Brain pathway ── -->
     <div class="schematic-wrap">
-      <svg class="schematic-svg" viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="axGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#1a6fd4;stop-opacity:1"/>
-            <stop offset="100%" style="stop-color:#0d9488;stop-opacity:1"/>
-          </linearGradient>
-          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#d4921a;stop-opacity:1"/>
-            <stop offset="100%" style="stop-color:#f0c060;stop-opacity:0.8"/>
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#1a6fd4"/>
-          </marker>
-          <marker id="arrowTeal" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#0d9488"/>
-          </marker>
-          <marker id="arrowGold" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#d4921a"/>
-          </marker>
-        </defs>
-
-        <!-- ── NODE 1: DIETARY INPUT ── -->
-        <g class="sch-node" transform="translate(80,160)">
-          <circle r="58" fill="#ffffff" stroke="#1a6fd4" stroke-width="2" opacity="0.95"/>
-          <circle r="58" fill="none" stroke="#1a6fd4" stroke-width="1" opacity="0.3" class="pulse-ring"/>
-          <!-- Plate / fork icon simplified -->
-          <text y="-12" text-anchor="middle" font-size="26">🥗</text>
-          <text y="8" text-anchor="middle" fill="#1e293b" font-size="9" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1">DIETARY</text>
-          <text y="20" text-anchor="middle" fill="#1e293b" font-size="9" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1">INPUT</text>
-          <text y="35" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="DM Sans,sans-serif">Ketogenic · Sucrose</text>
-          <text y="46" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="DM Sans,sans-serif">Nutraceuticals · H₂S</text>
-        </g>
-
-        <!-- Arrow 1→2 -->
-        <line x1="142" y1="148" x2="212" y2="120" stroke="#1a6fd4" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowBlue)" opacity="0.8" class="sch-arrow"/>
-        <line x1="142" y1="172" x2="212" y2="200" stroke="#1a6fd4" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowBlue)" opacity="0.8" class="sch-arrow"/>
-
-        <!-- ── NODE 2a: METABOLIC REPROGRAMMING ── -->
-        <g class="sch-node" transform="translate(290,95)">
-          <rect x="-68" y="-44" width="136" height="88" rx="10" fill="#ffffff" stroke="#1a6fd4" stroke-width="1.5" opacity="0.95"/>
-          <text y="-18" text-anchor="middle" font-size="20">⚗️</text>
-          <text y="-3" text-anchor="middle" fill="#1e293b" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">METABOLIC</text>
-          <text y="10" text-anchor="middle" fill="#1e293b" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">REPROGRAMMING</text>
-          <text y="25" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Glycolysis · OXPHOS</text>
-          <text y="36" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">BHB · Ketosis</text>
-        </g>
-
-        <!-- ── NODE 2b: NEUROIMMUNE RESPONSE ── -->
-        <g class="sch-node" transform="translate(290,225)">
-          <rect x="-68" y="-44" width="136" height="88" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.5" opacity="0.95"/>
-          <text y="-18" text-anchor="middle" font-size="20">🔬</text>
-          <text y="-3" text-anchor="middle" fill="#1e293b" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">NEUROIMMUNE</text>
-          <text y="10" text-anchor="middle" fill="#1e293b" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">RESPONSE</text>
-          <text y="25" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">TNF · IL-1β · NOX2</text>
-          <text y="36" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">M1/M2 Polarisation</text>
-        </g>
-
-        <!-- Arrows 2→3 MICROGLIA -->
-        <line x1="360" y1="105" x2="428" y2="138" stroke="#1a6fd4" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowBlue)" opacity="0.8" class="sch-arrow"/>
-        <line x1="360" y1="215" x2="428" y2="182" stroke="#0d9488" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowTeal)" opacity="0.8" class="sch-arrow"/>
-
-        <!-- ── NODE 3: MICROGLIA (CENTRAL) ── -->
-        <g class="sch-node" transform="translate(510,160)">
-          <!-- Microglia-like branching shape -->
-          <circle r="62" fill="#f8fafc" stroke="url(#axGrad)" stroke-width="2.5"/>
-          <circle r="62" fill="none" stroke="url(#axGrad)" stroke-width="1" opacity="0.4" class="pulse-ring-slow"/>
-          <!-- Branching processes -->
-          <line x1="0" y1="-62" x2="0" y2="-82" stroke="#1a6fd4" stroke-width="1.5" opacity="0.5"/>
-          <line x1="44" y1="-44" x2="58" y2="-58" stroke="#1a6fd4" stroke-width="1.5" opacity="0.5"/>
-          <line x1="62" y1="0" x2="82" y2="0" stroke="#0d9488" stroke-width="1.5" opacity="0.5"/>
-          <line x1="44" y1="44" x2="58" y2="58" stroke="#0d9488" stroke-width="1.5" opacity="0.5"/>
-          <line x1="0" y1="62" x2="0" y2="82" stroke="#1a6fd4" stroke-width="1.5" opacity="0.5"/>
-          <line x1="-44" y1="44" x2="-58" y2="58" stroke="#0d9488" stroke-width="1.5" opacity="0.5"/>
-          <line x1="-62" y1="0" x2="-82" y2="0" stroke="#1a6fd4" stroke-width="1.5" opacity="0.5"/>
-          <line x1="-44" y1="-44" x2="-58" y2="-58" stroke="#0d9488" stroke-width="1.5" opacity="0.5"/>
-          <!-- Process tips -->
-          <circle cx="0" cy="-86" r="4" fill="#1a6fd4" opacity="0.9"/>
-          <circle cx="62" cy="-62" r="3.5" fill="#1a6fd4" opacity="0.9"/>
-          <circle cx="86" cy="0" r="4" fill="#0d9488" opacity="0.9"/>
-          <circle cx="62" cy="62" r="3.5" fill="#0d9488" opacity="0.9"/>
-          <circle cx="0" cy="86" r="4" fill="#1a6fd4" opacity="0.9"/>
-          <circle cx="-62" cy="62" r="3.5" fill="#0d9488" opacity="0.9"/>
-          <circle cx="-86" cy="0" r="4" fill="#1a6fd4" opacity="0.9"/>
-          <circle cx="-62" cy="-62" r="3.5" fill="#0d9488" opacity="0.9"/>
-          <!-- Nucleus -->
-          <circle r="18" fill="#1e293b" stroke="#055C9D" stroke-width="1.2"/>
-          <text y="-9" text-anchor="middle" fill="#ffffff" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">MICRO-</text>
-          <text y="3" text-anchor="middle" fill="#ffffff" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">GLIA</text>
-          <text y="42" text-anchor="middle" fill="#334155" font-size="7" font-weight="600" font-family="DM Sans,sans-serif">Brain Immune Cell</text>
-          <text y="-46" text-anchor="middle" fill="#334155" font-size="7" font-weight="600" font-family="DM Sans,sans-serif">Phagocytosis · BBB</text>
-        </g>
-
-        <!-- Arrows 3→4 outcomes -->
-        <line x1="574" y1="140" x2="650" y2="110" stroke="#d4921a" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowGold)" opacity="0.8" class="sch-arrow"/>
-        <line x1="576" y1="160" x2="650" y2="160" stroke="url(#axGrad)" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowTeal)" opacity="0.8" class="sch-arrow"/>
-        <line x1="574" y1="180" x2="650" y2="210" stroke="#d4921a" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowGold)" opacity="0.8" class="sch-arrow"/>
-
-        <!-- ── NODE 4a: PROTECTION ── -->
-        <g class="sch-node" transform="translate(730,95)">
-          <rect x="-65" y="-42" width="130" height="82" rx="10" fill="#0a2010" stroke="#0d9488" stroke-width="1.5"/>
-          <text y="-16" text-anchor="middle" font-size="18">🛡️</text>
-          <text y="-1" text-anchor="middle" fill="#5eead4" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600">NEUROPROTECTION</text>
-          <text y="13" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">↓ Anxiety · ↑ Cognition</text>
-          <text y="24" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">BBB Integrity · M2</text>
-        </g>
-
-        <!-- ── NODE 4b: PRECISION THERAPY ── -->
-        <g class="sch-node" transform="translate(730,160)">
-          <rect x="-65" y="-30" width="130" height="60" rx="10" fill="#0d1b35" stroke="url(#axGrad)" stroke-width="1.5" filter="url(#glow)"/>
-          <text text-anchor="middle" fill="#e2eaf8" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700" y="-8">PRECISION</text>
-          <text text-anchor="middle" fill="#e2eaf8" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700" y="6">THERAPEUTICS</text>
-          <text y="20" text-anchor="middle" fill="#90bde0" font-size="7" font-family="DM Sans,sans-serif">Sex-aware · Genetic</text>
-        </g>
-
-        <!-- ── NODE 4c: DISEASE ── -->
-        <g class="sch-node" transform="translate(730,225)">
-          <rect x="-65" y="-42" width="130" height="82" rx="10" fill="#1a0a0a" stroke="#d4921a" stroke-width="1.5"/>
-          <text y="-16" text-anchor="middle" font-size="18">⚠️</text>
-          <text y="-1" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600">NEUROLOGICAL</text>
-          <text y="11" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600">DISEASE</text>
-          <text y="25" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Neuroinflammation</text>
-          <text y="36" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Addiction · HD · NDD</text>
-        </g>
-
-        <!-- Labels along the axis -->
-        <text x="450" y="292" text-anchor="middle" fill="#64748b" font-size="8" font-family="DM Sans,sans-serif" letter-spacing="3" text-transform="uppercase">DIET  →  IMMUNITY  →  BRAIN HEALTH</text>
-      </svg>
+      <img src="schema_main.jpeg" class="schematic-svg" alt="NeuroMeT Lab Core Research Axis Schematic" loading="lazy" style="border-radius:8px;"/>
     </div>
 
     <!-- ── SCHEMATIC 2: Microglia M1/M2 polarisation & BHB rescue ── -->
@@ -1543,148 +1413,19 @@ footer {
       <!-- Panel A: M1/M2 Polarisation -->
       <div class="schematic-panel reveal">
         <div class="sp-label">Microglial Polarisation States</div>
-        <svg viewBox="0 0 380 200" class="sp-svg" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="m1g" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" style="stop-color:#7f1d1d;stop-opacity:0.9"/>
-              <stop offset="100%" style="stop-color:#450a0a;stop-opacity:0.6"/>
-            </radialGradient>
-            <radialGradient id="m2g" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" style="stop-color:#064e3b;stop-opacity:0.9"/>
-              <stop offset="100%" style="stop-color:#022c22;stop-opacity:0.6"/>
-            </radialGradient>
-          </defs>
-          <!-- M1 cell -->
-          <circle cx="90" cy="100" r="50" fill="url(#m1g)" stroke="#ef4444" stroke-width="1.5"/>
-          <!-- M1 processes (shorter, stubby → activated) -->
-          <line x1="90" y1="50" x2="90" y2="34" stroke="#ef4444" stroke-width="2" opacity="0.6"/>
-          <line x1="126" y1="64" x2="136" y2="54" stroke="#ef4444" stroke-width="2" opacity="0.6"/>
-          <line x1="140" y1="100" x2="156" y2="100" stroke="#ef4444" stroke-width="2" opacity="0.5"/>
-          <line x1="126" y1="136" x2="136" y2="146" stroke="#ef4444" stroke-width="2" opacity="0.6"/>
-          <line x1="90" y1="150" x2="90" y2="166" stroke="#ef4444" stroke-width="2" opacity="0.6"/>
-          <line x1="54" y1="136" x2="44" y2="146" stroke="#ef4444" stroke-width="2" opacity="0.5"/>
-          <line x1="40" y1="100" x2="24" y2="100" stroke="#ef4444" stroke-width="2" opacity="0.6"/>
-          <line x1="54" y1="64" x2="44" y2="54" stroke="#ef4444" stroke-width="2" opacity="0.5"/>
-          <text x="90" y="95" text-anchor="middle" fill="#fca5a5" font-size="11" font-family="DM Sans,sans-serif" font-weight="700">M1</text>
-          <text x="90" y="109" text-anchor="middle" fill="#fca5a5" font-size="8" font-family="DM Sans,sans-serif">Pro-inflammatory</text>
-          <!-- Cytokines -->
-          <text x="90" y="178" text-anchor="middle" fill="#ef4444" font-size="7.5" font-family="DM Sans,sans-serif">TNF · IL-1β · IL-6 · NOX2↑</text>
-
-          <!-- Arrow bidirectional -->
-          <text x="190" y="85" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Diet / BHB</text>
-          <text x="190" y="97" text-anchor="middle" fill="#94a3b8" font-size="18">⇌</text>
-          <text x="190" y="115" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">H₂S · Myricetin</text>
-
-          <!-- M2 cell -->
-          <circle cx="290" cy="100" r="50" fill="url(#m2g)" stroke="#10b981" stroke-width="1.5"/>
-          <!-- M2 processes (longer, ramified → surveillant) -->
-          <line x1="290" y1="50" x2="290" y2="22" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
-          <circle cx="290" cy="19" r="3.5" fill="#10b981" opacity="0.6"/>
-          <line x1="334" y1="64" x2="350" y2="48" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
-          <circle cx="353" cy="45" r="3" fill="#10b981" opacity="0.6"/>
-          <line x1="340" y1="100" x2="362" y2="100" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
-          <circle cx="365" cy="100" r="3" fill="#10b981" opacity="0.6"/>
-          <line x1="334" y1="136" x2="350" y2="152" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
-          <circle cx="353" cy="155" r="3" fill="#10b981" opacity="0.6"/>
-          <line x1="290" y1="150" x2="290" y2="172" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
-          <circle cx="290" cy="175" r="3.5" fill="#10b981" opacity="0.6"/>
-          <line x1="246" y1="136" x2="230" y2="152" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
-          <line x1="240" y1="100" x2="218" y2="100" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
-          <line x1="246" y1="64" x2="230" y2="48" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
-          <text x="290" y="95" text-anchor="middle" fill="#6ee7b7" font-size="11" font-family="DM Sans,sans-serif" font-weight="700">M2</text>
-          <text x="290" y="109" text-anchor="middle" fill="#6ee7b7" font-size="8" font-family="DM Sans,sans-serif">Anti-inflammatory</text>
-          <text x="290" y="178" text-anchor="middle" fill="#10b981" font-size="7.5" font-family="DM Sans,sans-serif">IL-10 · TGF-β · Arg1↑</text>
-        </svg>
+        <img src="schema_panel_dbt2.jpeg" class="sp-svg" alt="Microglial polarization diagram" loading="lazy" style="border-radius:4px;"/>
       </div>
 
-      <!-- Panel B: BHB Ketone Body pathway -->
+      <!-- Panel B: Gut-Brain Nutrient Sensing -->
       <div class="schematic-panel reveal reveal-delay-1">
-        <div class="sp-label">BHB-mediated Microglial Rescue</div>
-        <svg viewBox="0 0 380 200" class="sp-svg" xmlns="http://www.w3.org/2000/svg">
-          <!-- Glucose deprivation box -->
-          <rect x="8" y="14" width="100" height="48" rx="8" fill="#1a0a0a" stroke="#ef4444" stroke-width="1.2"/>
-          <text x="58" y="32" text-anchor="middle" fill="#fca5a5" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">Glucose</text>
-          <text x="58" y="44" text-anchor="middle" fill="#fca5a5" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">Deprivation</text>
-          <text x="58" y="56" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Ischemia · GLUT1⁻</text>
-
-          <!-- Down arrow → dysfunction -->
-          <line x1="58" y1="62" x2="58" y2="86" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrowGold)"/>
-
-          <!-- Dysfunction box -->
-          <rect x="8" y="88" width="100" height="62" rx="8" fill="#1a1000" stroke="#d4921a" stroke-width="1.2"/>
-          <text x="58" y="104" text-anchor="middle" fill="#fbbf24" font-size="7.5" font-family="DM Sans,sans-serif" font-weight="600">Microglial</text>
-          <text x="58" y="115" text-anchor="middle" fill="#fbbf24" font-size="7.5" font-family="DM Sans,sans-serif" font-weight="600">Dysfunction</text>
-          <text x="58" y="129" text-anchor="middle" fill="#64748b" font-size="6.5" font-family="DM Sans,sans-serif">↓ Phagocytosis</text>
-          <text x="58" y="140" text-anchor="middle" fill="#64748b" font-size="6.5" font-family="DM Sans,sans-serif">↓ Redox · ↓ Cytokines</text>
-
-          <!-- BHB source box top right -->
-          <rect x="272" y="14" width="100" height="48" rx="8" fill="#082015" stroke="#0d9488" stroke-width="1.2"/>
-          <text x="322" y="30" text-anchor="middle" fill="#5eead4" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">β-HydroxyButyrate</text>
-          <text x="322" y="42" text-anchor="middle" fill="#5eead4" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">(BHB)</text>
-          <text x="322" y="54" text-anchor="middle" fill="#64748b" font-size="6.5" font-family="DM Sans,sans-serif">Ketogenic Diet · Fasting</text>
-
-          <!-- BHB arrow to rescue -->
-          <path d="M322 62 Q322 120 220 120" stroke="#0d9488" stroke-width="1.8" fill="none" stroke-dasharray="5,3" marker-end="url(#arrowTeal)"/>
-          <text x="290" y="100" text-anchor="middle" fill="#0d9488" font-size="7.5" font-family="DM Sans,sans-serif">Supplementation</text>
-
-          <!-- Rescue box centre -->
-          <rect x="140" y="88" width="116" height="80" rx="10" fill="#041a14" stroke="#10b981" stroke-width="1.8"/>
-          <text x="198" y="108" text-anchor="middle" fill="#6ee7b7" font-size="9" font-family="DM Sans,sans-serif" font-weight="700">BHB Rescue</text>
-          <text x="198" y="122" text-anchor="middle" fill="#34d399" font-size="7" font-family="DM Sans,sans-serif">↑ MTT · Mito Health</text>
-          <text x="198" y="133" text-anchor="middle" fill="#34d399" font-size="7" font-family="DM Sans,sans-serif">↑ TNF · IL-1β · NOX2</text>
-          <text x="198" y="144" text-anchor="middle" fill="#34d399" font-size="7" font-family="DM Sans,sans-serif">↑ Phagocytic Activity</text>
-          <text x="198" y="158" text-anchor="middle" fill="#64748b" font-size="6.5" font-family="DM Sans,sans-serif">J Neuroimmune Pharmacol, 2024</text>
-
-          <!-- Arrow dysfunction → rescue -->
-          <line x1="108" y1="119" x2="138" y2="119" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowTeal)"/>
-
-          <!-- Outcome -->
-          <rect x="272" y="88" width="100" height="80" rx="8" fill="#0a1a2a" stroke="#1a6fd4" stroke-width="1.2"/>
-          <text x="322" y="108" text-anchor="middle" fill="#93c5fd" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">Metabolic</text>
-          <text x="322" y="120" text-anchor="middle" fill="#93c5fd" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">Therapy</text>
-          <text x="322" y="135" text-anchor="middle" fill="#64748b" font-size="6.5" font-family="DM Sans,sans-serif">Neurological disease</text>
-          <text x="322" y="146" text-anchor="middle" fill="#64748b" font-size="6.5" font-family="DM Sans,sans-serif">where brain glucose</text>
-          <text x="322" y="157" text-anchor="middle" fill="#64748b" font-size="6.5" font-family="DM Sans,sans-serif">metabolism is impaired</text>
-          <line x1="258" y1="128" x2="272" y2="128" stroke="#1a6fd4" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowBlue)"/>
-        </svg>
+        <div class="sp-label">Gut-Brain Nutrient Sensing</div>
+        <img src="schema_panel_1.jpeg" class="sp-svg" alt="Gut-brain axis and dopamine circuit" loading="lazy" style="border-radius:4px;"/>
       </div>
 
-      <!-- Panel C: Sex-specific neuroimmune axis -->
+      <!-- Panel C: Therapeutic Interventions -->
       <div class="schematic-panel reveal reveal-delay-2">
-        <div class="sp-label">Sex-specific Neuroimmune Responses</div>
-        <svg viewBox="0 0 380 200" class="sp-svg" xmlns="http://www.w3.org/2000/svg">
-          <!-- Central stressor -->
-          <ellipse cx="190" cy="38" rx="90" ry="26" fill="#0d1b35" stroke="#1a6fd4" stroke-width="1.5"/>
-          <text x="190" y="32" text-anchor="middle" fill="#93c5fd" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600">Dietary / Drug Stressor</text>
-          <text x="190" y="48" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Sucrose · Nicotine · Opioid · Ketogenic Diet</text>
-
-          <!-- Arrows branching by sex -->
-          <line x1="130" y1="62" x2="80" y2="92" stroke="#f472b6" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowGold)"/>
-          <line x1="250" y1="62" x2="300" y2="92" stroke="#60a5fa" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowBlue)"/>
-
-          <!-- Female box -->
-          <rect x="12" y="94" width="136" height="98" rx="10" fill="#1a0a18" stroke="#f472b6" stroke-width="1.5"/>
-          <text x="80" y="112" text-anchor="middle" fill="#f9a8d4" font-size="9" font-family="DM Sans,sans-serif" font-weight="700">♀ Female</text>
-          <text x="80" y="126" text-anchor="middle" fill="#f9a8d4" font-size="7.5" font-family="DM Sans,sans-serif">Distinct Neuroimmune</text>
-          <text x="80" y="138" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">↑ BBB vulnerability</text>
-          <text x="80" y="150" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Distinct anxiety profile</text>
-          <text x="80" y="162" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Hormonal modulation</text>
-          <text x="80" y="182" text-anchor="middle" fill="#f472b6" font-size="6.5" font-family="DM Sans,sans-serif">Biol Psychiatry GOS · Neuropharm</text>
-
-          <!-- Male box -->
-          <rect x="232" y="94" width="136" height="98" rx="10" fill="#0a0e1a" stroke="#60a5fa" stroke-width="1.5"/>
-          <text x="300" y="112" text-anchor="middle" fill="#93c5fd" font-size="9" font-family="DM Sans,sans-serif" font-weight="700">♂ Male</text>
-          <text x="300" y="126" text-anchor="middle" fill="#93c5fd" font-size="7.5" font-family="DM Sans,sans-serif">Distinct Neuroimmune</text>
-          <text x="300" y="138" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">↑ M1 microglial resp.</text>
-          <text x="300" y="150" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Distinct opioid withdrawal</text>
-          <text x="300" y="162" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Metabolic divergence</text>
-          <text x="300" y="182" text-anchor="middle" fill="#60a5fa" font-size="6.5" font-family="DM Sans,sans-serif">J Nutr Biochem · Neuropharm</text>
-
-          <!-- Precision Rx centre bottom -->
-          <text x="190" y="170" text-anchor="middle" fill="#d4921a" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">→ Sex-aware Precision Therapeutics ←</text>
-          <line x1="148" y1="160" x2="165" y2="166" stroke="#d4921a" stroke-width="1" opacity="0.6"/>
-          <line x1="232" y1="160" x2="215" y2="166" stroke="#d4921a" stroke-width="1" opacity="0.6"/>
-        </svg>
+        <div class="sp-label">Therapeutic Interventions</div>
+        <img src="schema_panel_kd.jpeg" class="sp-svg" alt="Dietary and pharmacological interventions" loading="lazy" style="border-radius:4px;"/>
       </div>
 
     </div><!-- /schematic-sub-grid -->
@@ -2289,11 +2030,11 @@ function createMobileNav() {
   div.className = 'nav-mobile';
   div.id = 'nav-mobile';
   div.innerHTML = `
-    <div class="nav-mobile-header">
-      <span class="nav-logo-dot" style="width:7px;height:7px;"></span>
+      <div class="nav-mobile-header">
+      <span class="nav-logo-dot" style="width:7px;height:7px;background:var(--gold);"></span>
       <div>
-        <div class="nav-mobile-brand">NeuroMeT Lab</div>
-        <div class="nav-mobile-sub">Neuroscience &amp; Immuno-Metabolism Lab · BRIC-NABI</div>
+        <div class="nav-mobile-brand" style="color:var(--navy);">NeuroMeT Lab</div>
+        <div class="nav-mobile-sub" style="color:var(--muted);">Neuroscience &amp; Immuno-Metabolism Lab · BRIC-NABI</div>
       </div>
     </div>
     <a href="#about"        class="nav-mob-link">🔬 About</a>
