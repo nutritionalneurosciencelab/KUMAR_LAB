@@ -122,13 +122,18 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
   display: none;
   flex-direction: column; gap: 5px;
   cursor: pointer; padding: 8px;
+  z-index: 501;
 }
 .nav-toggle span {
   width: 22px; height: 2px;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.8);
   border-radius: 2px;
-  transition: all 0.3s;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  transform-origin: center;
 }
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ── HERO ── */
 .hero {
@@ -1054,7 +1059,7 @@ footer {
   .nav-toggle { display: flex; }
   .nav-logo { gap: 7px; }
   .nav-logo-main { font-size: 0.9rem; }
-  .nav-logo-sub { display: none; }
+  .nav-logo-sub { font-size: 0.55rem; display: block; }
   .nav-logo-dot { width: 6px; height: 6px; }
 
   /* Hero */
@@ -1095,24 +1100,53 @@ footer {
 
 /* Mobile nav open */
 .nav-mobile {
-  display: none;
+  display: block;
   position: fixed; top: 60px; left: 0; right: 0;
-  background: rgba(13,27,53,0.98);
-  backdrop-filter: blur(12px);
-  padding: 16px 0 24px;
+  background: rgba(10,20,42,0.98);
+  backdrop-filter: blur(16px);
   z-index: 490;
   border-bottom: 1px solid rgba(255,255,255,0.08);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
+              opacity 0.3s ease;
+  opacity: 0;
 }
-.nav-mobile.open { display: block; }
+.nav-mobile.open {
+  max-height: 420px;
+  opacity: 1;
+}
 .nav-mobile a {
-  display: block; padding: 12px 5%;
-  font-size: 0.85rem; font-weight: 500;
-  color: rgba(255,255,255,0.7);
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 6%;
+  font-size: 0.88rem; font-weight: 500;
+  color: rgba(255,255,255,0.65);
   text-decoration: none;
-  letter-spacing: 0.05em; text-transform: uppercase;
-  transition: color 0.15s;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  border-left: 3px solid transparent;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
-.nav-mobile a:hover { color: #fff; }
+.nav-mobile a:hover,
+.nav-mobile a.active {
+  color: #fff;
+  border-left-color: var(--gold);
+  background: rgba(255,255,255,0.04);
+}
+.nav-mobile-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 6% 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 4px;
+}
+.nav-mobile-brand {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem; color: #fff;
+}
+.nav-mobile-sub {
+  font-size: 0.62rem; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.04em;
+  font-family: 'DM Sans', sans-serif;
+}
 
 /* ── TOOLTIP ── */
 [data-tooltip] {
@@ -1161,13 +1195,20 @@ footer {
 
 <!-- Mobile nav -->
 <div class="nav-mobile" id="nav-mobile">
-  <a href="#about" class="nav-mob-link">About</a>
-  <a href="#research" class="nav-mob-link">Research</a>
-  <a href="#team" class="nav-mob-link">Team</a>
-  <a href="#publications" class="nav-mob-link">Publications</a>
-  <a href="#news" class="nav-mob-link">News</a>
-  <a href="#awards" class="nav-mob-link">Awards &amp; Funding</a>
-  <a href="#contact" class="nav-mob-link">Contact</a>
+  <div class="nav-mobile-header">
+    <span class="nav-logo-dot" style="width:7px;height:7px;"></span>
+    <div>
+      <div class="nav-mobile-brand">NeuroMeT Lab</div>
+      <div class="nav-mobile-sub">Neuroscience &amp; Immuno-Metabolism Lab · BRIC-NABI</div>
+    </div>
+  </div>
+  <a href="#about"        class="nav-mob-link">🔬 About</a>
+  <a href="#research"     class="nav-mob-link">🧠 Research</a>
+  <a href="#team"         class="nav-mob-link">👥 Team</a>
+  <a href="#publications" class="nav-mob-link">📄 Publications</a>
+  <a href="#news"         class="nav-mob-link">📰 News</a>
+  <a href="#awards"       class="nav-mob-link">🏆 Awards &amp; Funding</a>
+  <a href="#contact"      class="nav-mob-link">📍 Contact</a>
 </div>
 
 <!-- ── HERO ── -->
@@ -2171,12 +2212,50 @@ document.querySelectorAll('.tag').forEach(tag => {
 // ── MOBILE NAV TOGGLE ──
 const navToggle = document.getElementById('nav-toggle');
 const navMobile = document.getElementById('nav-mobile');
+
+function openMobileNav() {
+  navMobile.classList.add('open');
+  navToggle.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileNav() {
+  navMobile.classList.remove('open');
+  navToggle.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 navToggle.addEventListener('click', () => {
-  navMobile.classList.toggle('open');
+  navMobile.classList.contains('open') ? closeMobileNav() : openMobileNav();
 });
+
+// Close when any link is tapped
 document.querySelectorAll('.nav-mob-link').forEach(a => {
-  a.addEventListener('click', () => navMobile.classList.remove('open'));
+  a.addEventListener('click', closeMobileNav);
 });
+
+// Close when tapping outside
+document.addEventListener('click', (e) => {
+  if (navMobile.classList.contains('open') &&
+      !navMobile.contains(e.target) &&
+      !navToggle.contains(e.target)) {
+    closeMobileNav();
+  }
+});
+
+// Highlight active section in mobile nav on scroll
+const mobLinks = document.querySelectorAll('.nav-mob-link');
+function updateMobActive() {
+  const sections = ['about','research','team','publications','news','awards','contact'];
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 100) current = id;
+  });
+  mobLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateMobActive, { passive: true });
 
 // ── GALLERY SLIDESHOW ──
 document.querySelectorAll('.news-card-gallery').forEach(gallery => {
