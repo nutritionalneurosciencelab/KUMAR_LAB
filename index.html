@@ -76,20 +76,20 @@
 <meta name="theme-color" content="#0d1b35"/>
 <style>
 :root {
-  --navy:    #0d1b35;
-  --navy2:   #1b2a4a;
-  --accent:  #1a6fd4;
-  --accent2: #0ea5e9;
-  --gold:    #d4921a;
-  --gold2:   #f0c060;
-  --teal:    #0d9488;
-  --light:   #f0f4f9;
+  --navy:    #1e293b; /* Slate 800 (Primary text/dark elements) */
+  --navy2:   #f1f5f9; /* Slate 100 (Secondary backgrounds) */
+  --accent:  #055C9D; /* Academic Data Blue (Links, highlights) */
+  --accent2: #0284c7; /* Sky 600 */
+  --gold:    #8B0000; /* Deep Burgundy (replaces Gold for academic accent) */
+  --gold2:   #b91c1c; /* Red 700 */
+  --teal:    #0f766e; /* Teal 700 */
+  --light:   #f8fafc; /* Slate 50 (Off-white backgrounds) */
   --white:   #ffffff;
-  --text:    #1e293b;
-  --muted:   #64748b;
-  --border:  #dde3ee;
-  --glow:    rgba(26,111,212,0.15);
-  --grad1:   linear-gradient(135deg, #0d1b35 0%, #1b3a60 50%, #0d2a4a 100%);
+  --text:    #334155; /* Slate 700 (Body text) */
+  --muted:   #64748b; /* Slate 500 (Muted text) */
+  --border:  #e2e8f0; /* Slate 200 (Clean borders) */
+  --glow:    rgba(5,92,157,0.1);
+  --grad1:   linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -117,19 +117,19 @@ body {
 /* ── NAV ── */
 nav {
   position: sticky; top: 0; z-index: 500;
-  background: rgba(13,27,53,0.96);
+  background: rgba(255,255,255,0.96);
   backdrop-filter: blur(12px);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 5%;
   height: 60px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid var(--border);
   transition: box-shadow 0.3s;
 }
-nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
+nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
 .nav-logo {
   font-family: 'DM Serif Display', serif;
   font-size: 1.05rem;
-  color: #fff; text-decoration: none;
+  color: var(--navy); text-decoration: none;
   letter-spacing: 0.01em;
   display: flex; align-items: center; gap: 10px;
   flex-shrink: 1;
@@ -144,13 +144,13 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 }
 .nav-logo-main {
   font-family: 'DM Serif Display', serif;
-  font-size: 1.05rem; color: #fff;
+  font-size: 1.05rem; color: var(--navy);
   letter-spacing: 0.02em;
 }
 .nav-logo-sub {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.65rem; font-weight: 300;
-  color: rgba(255,255,255,0.45);
+  font-size: 0.65rem; font-weight: 500;
+  color: var(--muted);
   letter-spacing: 0.04em;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
@@ -168,8 +168,8 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
   display: block;
   padding: 0 16px; height: 60px; line-height: 60px;
   text-decoration: none;
-  font-size: 0.8rem; font-weight: 500;
-  color: rgba(255,255,255,0.6);
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--muted);
   letter-spacing: 0.05em; text-transform: uppercase;
   position: relative;
   transition: color 0.2s;
@@ -181,9 +181,9 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
   transform: scaleX(0);
   transition: transform 0.2s ease;
 }
-.nav-links a:hover { color: #fff; }
+.nav-links a:hover { color: var(--navy); }
 .nav-links a:hover::after { transform: scaleX(1); }
-.nav-links a.active { color: #fff; }
+.nav-links a.active { color: var(--navy); }
 .nav-links a.active::after { transform: scaleX(1); }
 
 /* Mobile hamburger */
@@ -195,7 +195,7 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 }
 .nav-toggle span {
   width: 22px; height: 2px;
-  background: rgba(255,255,255,0.8);
+  background: var(--navy);
   border-radius: 2px;
   transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
   transform-origin: center;
@@ -210,7 +210,7 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
   width: 100%; min-height: 100vh;
   display: flex; align-items: center;
   overflow: hidden;
-  background: var(--navy);
+  background: var(--light);
 }
 .hero-particles {
   position: absolute; inset: 0;
@@ -222,15 +222,15 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 .hero-gradient {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(26,111,212,0.2) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 80% at 80% 20%, rgba(13,148,136,0.12) 0%, transparent 60%),
-    linear-gradient(160deg, #0d1b35 0%, #0d2540 60%, #0d1b35 100%);
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(5,92,157,0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 80% at 80% 20%, rgba(139,0,0,0.03) 0%, transparent 60%),
+    linear-gradient(160deg, #f8fafc 0%, #f1f5f9 60%, #ffffff 100%);
 }
 .hero-grid {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 .hero-content {
@@ -241,9 +241,9 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 }
 .hero-tag {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(212,146,26,0.15);
-  border: 1px solid rgba(212,146,26,0.35);
-  color: var(--gold2); font-size: 0.7rem; font-weight: 600;
+  background: rgba(139,0,0,0.05); /* Burgundy light */
+  border: 1px solid rgba(139,0,0,0.15);
+  color: var(--gold); font-size: 0.7rem; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
   padding: 6px 16px; border-radius: 20px;
   margin-bottom: 24px;
@@ -257,20 +257,20 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 .hero h1 {
   font-family: 'DM Serif Display', serif;
   font-size: clamp(2.2rem, 5vw, 3.8rem);
-  color: #fff;
+  color: var(--navy);
   line-height: 1.15; margin-bottom: 20px;
   animation: fadeSlideUp 0.8s ease 0.15s both;
 }
 .hero h1 em {
   font-style: italic;
-  background: linear-gradient(90deg, var(--accent2), var(--teal));
+  background: linear-gradient(90deg, var(--accent), var(--teal));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .hero-sub {
-  font-size: 1.05rem; color: rgba(255,255,255,0.65);
-  font-weight: 300; max-width: 580px;
+  font-size: 1.05rem; color: var(--text);
+  font-weight: 400; max-width: 580px;
   line-height: 1.8;
   animation: fadeSlideUp 0.8s ease 0.3s both;
 }
@@ -279,19 +279,19 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
   margin-top: 52px;
   animation: fadeSlideUp 0.8s ease 0.45s both;
 }
-.hero-stat {}
+
 .hero-stat .num {
   font-family: 'DM Serif Display', serif;
-  font-size: 2.2rem; color: var(--gold2);
+  font-size: 2.2rem; color: var(--gold);
   line-height: 1;
   display: flex; align-items: baseline; gap: 3px;
 }
 .hero-stat .num sup { font-size: 1rem; }
-.hero-stat .label { font-size: 0.72rem; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+.hero-stat .label { font-size: 0.72rem; color: var(--muted); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
 .hero-scroll {
   position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: rgba(255,255,255,0.35); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
   animation: fadeIn 1.5s ease 1s both;
   z-index: 10;
   cursor: pointer;
@@ -299,7 +299,7 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 }
 .hero-scroll-line {
   width: 1px; height: 48px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  background: linear-gradient(to bottom, var(--muted), transparent);
   animation: scrollLine 2s ease-in-out infinite;
 }
 @keyframes scrollLine {
@@ -453,29 +453,32 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 
 /* ── QUOTE BAR ── */
 .quote-bar {
-  background: var(--navy);
+  background: var(--light);
   padding: 56px 5%;
   text-align: center;
   position: relative; overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 .quote-bar::before {
   content: '"';
   position: absolute; top: -20px; left: 5%;
   font-family: 'DM Serif Display', serif;
-  font-size: 12rem; color: rgba(255,255,255,0.04);
+  font-size: 12rem; color: rgba(0,0,0,0.03);
   line-height: 1; pointer-events: none;
 }
 .quote-bar blockquote {
   font-family: 'DM Serif Display', serif;
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   font-style: italic;
-  color: rgba(255,255,255,0.8); max-width: 750px; margin: 0 auto;
+  color: var(--navy); max-width: 750px; margin: 0 auto;
   line-height: 1.65; position: relative; z-index: 1;
 }
 .quote-bar cite {
   display: block; margin-top: 16px;
   font-size: 0.78rem; font-style: normal;
-  color: var(--gold2); letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 600;
 }
 
 /* ── PI BLOCK ── */
@@ -493,17 +496,18 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
   background: var(--navy2);
   overflow: hidden; border-radius: 8px;
   position: relative;
+  border: 1px solid var(--border);
 }
 .pi-img-frame::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(13,27,53,0.6));
+  background: linear-gradient(to bottom, transparent 60%, rgba(30,41,59,0.3));
 }
 .pi-img-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .pi-img-placeholder {
   width: 100%; height: 100%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 10px; color: rgba(255,255,255,0.4); font-size: 0.8rem; text-align: center;
+  gap: 10px; color: var(--muted); font-size: 0.8rem; text-align: center;
 }
 .pi-img-placeholder .big { font-family: 'DM Serif Display', serif; font-size: 3.5rem; color: rgba(255,255,255,0.5); }
 .pi-badge {
@@ -676,12 +680,13 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 }
 .mc-photo {
   width: 100%; height: 168px;
-  background: linear-gradient(135deg, #1a3055, #2a4a7a);
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; position: relative;
+  border-bottom: 1px solid var(--border);
 }
 .mc-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.mc-photo .init { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: rgba(255,255,255,0.65); }
+.mc-photo .init { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: var(--muted); opacity: 0.6; }
 .mc-info { padding: 16px 12px 20px; }
 .mc-name { font-family: 'DM Serif Display', serif; font-size: 0.97rem; color: var(--navy); margin-bottom: 3px; }
 .mc-role { font-size: 0.68rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
@@ -782,9 +787,9 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 }
 .aw::before { display: none; }
 .aw:hover {
-  box-shadow: 0 8px 24px rgba(13,27,53,0.1);
+  box-shadow: 0 8px 24px rgba(13,27,53,0.06);
   transform: translateY(-3px);
-  border-color: rgba(212,146,26,0.3);
+  border-color: var(--gold);
 }
 .aw-yr {
   font-family: 'JetBrains Mono', monospace;
@@ -806,22 +811,22 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
   gap: 20px; margin-top: 48px;
 }
 .alum {
-  background: var(--white); border: 1px solid var(--border);
+  background: var(--light); border: 1px solid var(--border);
   border-radius: 10px; padding: 24px;
   display: flex; gap: 18px; align-items: flex-start;
   transition: all 0.3s ease;
 }
 .alum:hover {
-  box-shadow: 0 8px 24px rgba(13,27,53,0.1);
+  box-shadow: 0 8px 24px rgba(13,27,53,0.06);
   transform: translateY(-3px);
-  border-color: rgba(26,111,212,0.25);
+  border-color: var(--accent);
 }
 .alum-avatar {
   width: 54px; height: 54px; border-radius: 50%;
-  background: var(--navy2); flex-shrink: 0;
+  background: var(--border); flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   font-family: 'DM Serif Display', serif; font-size: 1.2rem;
-  color: rgba(255,255,255,0.7);
+  color: var(--navy);
   overflow: hidden;
 }
 .alum-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
@@ -859,21 +864,22 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.3); }
 
 /* ── FOOTER ── */
 footer {
-  background: var(--navy);
-  color: rgba(255,255,255,0.4);
+  background: var(--light);
+  color: var(--muted);
   padding: 40px 5%;
   font-size: 0.8rem;
   position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
 }
 .footer-inner {
   max-width: 1060px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 20px;
 }
-.footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: rgba(255,255,255,0.7); }
+.footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--navy); }
 .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
-.footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; font-size: 0.78rem; }
-.footer-links a:hover { color: rgba(255,255,255,0.7); }
+.footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; font-size: 0.78rem; }
+.footer-links a:hover { color: var(--accent); }
 
 /* ── COUNTER ANIMATION ── */
 .count-animate { display: inline-block; }
@@ -907,15 +913,16 @@ footer {
   display: flex; flex-direction: column;
 }
 .news-card:hover {
-  box-shadow: 0 14px 40px rgba(13,27,53,0.12);
+  box-shadow: 0 14px 40px rgba(13,27,53,0.06);
   transform: translateY(-5px);
-  border-color: rgba(26,111,212,0.3);
+  border-color: var(--accent);
 }
 .news-card-gallery {
   position: relative;
   width: 100%; height: 230px;
-  overflow: hidden; background: var(--navy2);
+  overflow: hidden; background: var(--light);
   cursor: pointer;
+  border-bottom: 1px solid var(--border);
 }
 .news-card-gallery img {
   position: absolute; inset: 0;
@@ -984,8 +991,9 @@ footer {
   display: inline-flex; align-items: center; gap: 5px;
   font-size: 0.72rem; font-weight: 500;
   color: var(--navy);
-  background: var(--white); border: 1px solid var(--border);
+  background: var(--light); border: 1px solid var(--border);
   padding: 3px 10px; border-radius: 12px;
+}
 .news-thanks {
   margin-top: 14px; padding-top: 12px;
   border-top: 1px solid var(--border);
@@ -1035,8 +1043,8 @@ footer {
 }
 .schematic-wrap {
   width: 100%;
-  background: #07111f;
-  border: 1px solid rgba(26,111,212,0.2);
+  background: var(--white);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 24px;
   overflow: hidden;
@@ -1046,9 +1054,9 @@ footer {
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 60% 80% at 50% 50%, rgba(26,111,212,0.06) 0%, transparent 70%),
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.02) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.02) 40px);
+    radial-gradient(ellipse 60% 80% at 50% 50%, rgba(5,92,157,0.03) 0%, transparent 70%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0,0,0,0.02) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0,0,0,0.02) 40px);
   pointer-events: none;
 }
 .schematic-svg {
@@ -1087,8 +1095,8 @@ footer {
   margin-top: 20px;
 }
 .schematic-panel {
-  background: #07111f;
-  border: 1px solid rgba(26,111,212,0.15);
+  background: var(--light);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 18px 14px 14px;
   overflow: hidden;
@@ -1098,7 +1106,7 @@ footer {
   letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 14px;
   padding-bottom: 8px;
-  border-bottom: 1px solid rgba(26,111,212,0.15);
+  border-bottom: 1px solid var(--border);
 }
 .sp-svg {
   width: 100%; height: auto; display: block;
@@ -1286,10 +1294,10 @@ footer {
   <div class="hero-content">
     <div class="hero-tag">BRIC-NABI · Mohali, India</div>
     <h1><em>NeuroMeT</em> Lab</h1>
-    <p class="hero-sub" style="font-size:1.15rem; color:rgba(255,255,255,0.85); font-weight:400; margin-bottom:8px;">Neuroscience &amp; Immuno-Metabolism Laboratory</p>
+    <p class="hero-sub" style="font-size:1.15rem; color:var(--navy); font-weight:500; margin-bottom:8px;">Neuroscience &amp; Immuno-Metabolism Laboratory</p>
     <p class="hero-sub">
-      Investigating how nutrition and metabolism reprogram neuroimmune circuits —
-      to understand, prevent, and treat neurological and metabolic disorders.
+      Investigating how dietary inputs modulate neuroimmune interactions —
+      to understand their role in neurological and metabolic health.
     </p>
     <div class="hero-stats">
       <div class="hero-stat">
@@ -1356,7 +1364,7 @@ footer {
         <h3>Dr. Mohit Kumar</h3>
         <div class="pi-pos">Scientist C &nbsp;·&nbsp; BRIC-NABI, Mohali</div>
         <p class="pi-desc">
-          Dr. Mohit Kumar leads the NeuroMeT Lab at BRIC-National Agri-Food and Biomanufacturing Institute (NABI), Mohali, where he joined as Scientist C in January 2023. His research spans nutritional neuroscience, neuroinflammation, innate immunity, and immunometabolism — with a focus on how dietary patterns reprogram neuroimmune circuits to drive or protect against metabolic and neurological disorders.
+          Dr. Mohit Kumar leads the NeuroMeT Lab at BRIC-National Agri-Food and Biomanufacturing Institute (NABI), Mohali, where he joined as Scientist C in January 2023. His research spans nutritional neuroscience, neuroimmunology, and immunometabolism — with a focus on how dietary patterns modulate neuroimmune pathways to influence metabolic and neurological health.
         </p>
 
         <div class="timeline">
@@ -1381,7 +1389,7 @@ footer {
 <!-- ── QUOTE BAR ── -->
 <div class="quote-bar">
   <blockquote class="reveal">
-    "What we eat is not merely fuel — it is a signal that rewires immunity, sculpts neural circuits, and determines susceptibility to disease."
+    "Dietary inputs serve as critical signals that modulate neuroimmune interactions, shaping neural function and influencing disease susceptibility."
     <cite>— NeuroMeT Lab Research Philosophy</cite>
   </blockquote>
 </div>
@@ -1392,7 +1400,7 @@ footer {
   <div class="schematic-section reveal">
     <div class="section-eyebrow" style="justify-content:center; margin-bottom:18px;">Research Framework</div>
     <div class="section-heading" style="text-align:center; margin-bottom:6px;">The Lab's Core Research Axis</div>
-    <p style="text-align:center; color:var(--muted); font-size:0.9rem; margin-bottom:48px; max-width:600px; margin-left:auto; margin-right:auto;">How dietary inputs reprogram microglial metabolism and neuroimmune circuits — driving or protecting against neurological and metabolic disease.</p>
+    <p style="text-align:center; color:var(--muted); font-size:0.9rem; margin-bottom:48px; max-width:600px; margin-left:auto; margin-right:auto;">How dietary inputs modulate microglia metabolism and neuroimmune pathways — contributing to protection against, or susceptibility to, neurological and metabolic diseases.</p>
 
     <!-- ── SCHEMATIC 1: Nutrition → Microglia → Brain pathway ── -->
     <div class="schematic-wrap">
@@ -1423,12 +1431,12 @@ footer {
 
         <!-- ── NODE 1: DIETARY INPUT ── -->
         <g class="sch-node" transform="translate(80,160)">
-          <circle r="58" fill="#0d1b35" stroke="#1a6fd4" stroke-width="2" opacity="0.95"/>
+          <circle r="58" fill="#ffffff" stroke="#1a6fd4" stroke-width="2" opacity="0.95"/>
           <circle r="58" fill="none" stroke="#1a6fd4" stroke-width="1" opacity="0.3" class="pulse-ring"/>
           <!-- Plate / fork icon simplified -->
           <text y="-12" text-anchor="middle" font-size="26">🥗</text>
-          <text y="8" text-anchor="middle" fill="#e2eaf8" font-size="9" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1">DIETARY</text>
-          <text y="20" text-anchor="middle" fill="#e2eaf8" font-size="9" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1">INPUT</text>
+          <text y="8" text-anchor="middle" fill="#1e293b" font-size="9" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1">DIETARY</text>
+          <text y="20" text-anchor="middle" fill="#1e293b" font-size="9" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="1">INPUT</text>
           <text y="35" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="DM Sans,sans-serif">Ketogenic · Sucrose</text>
           <text y="46" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="DM Sans,sans-serif">Nutraceuticals · H₂S</text>
         </g>
@@ -1439,33 +1447,33 @@ footer {
 
         <!-- ── NODE 2a: METABOLIC REPROGRAMMING ── -->
         <g class="sch-node" transform="translate(290,95)">
-          <rect x="-68" y="-44" width="136" height="88" rx="10" fill="#0d1b35" stroke="#1a6fd4" stroke-width="1.5" opacity="0.95"/>
+          <rect x="-68" y="-44" width="136" height="88" rx="10" fill="#ffffff" stroke="#1a6fd4" stroke-width="1.5" opacity="0.95"/>
           <text y="-18" text-anchor="middle" font-size="20">⚗️</text>
-          <text y="-3" text-anchor="middle" fill="#e2eaf8" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">METABOLIC</text>
-          <text y="10" text-anchor="middle" fill="#e2eaf8" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">REPROGRAMMING</text>
+          <text y="-3" text-anchor="middle" fill="#1e293b" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">METABOLIC</text>
+          <text y="10" text-anchor="middle" fill="#1e293b" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">REPROGRAMMING</text>
           <text y="25" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">Glycolysis · OXPHOS</text>
           <text y="36" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">BHB · Ketosis</text>
         </g>
 
         <!-- ── NODE 2b: NEUROIMMUNE RESPONSE ── -->
         <g class="sch-node" transform="translate(290,225)">
-          <rect x="-68" y="-44" width="136" height="88" rx="10" fill="#0d1b35" stroke="#0d9488" stroke-width="1.5" opacity="0.95"/>
+          <rect x="-68" y="-44" width="136" height="88" rx="10" fill="#ffffff" stroke="#0d9488" stroke-width="1.5" opacity="0.95"/>
           <text y="-18" text-anchor="middle" font-size="20">🔬</text>
-          <text y="-3" text-anchor="middle" fill="#e2eaf8" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">NEUROIMMUNE</text>
-          <text y="10" text-anchor="middle" fill="#e2eaf8" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">RESPONSE</text>
+          <text y="-3" text-anchor="middle" fill="#1e293b" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">NEUROIMMUNE</text>
+          <text y="10" text-anchor="middle" fill="#1e293b" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="600" letter-spacing="0.8">RESPONSE</text>
           <text y="25" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">TNF · IL-1β · NOX2</text>
           <text y="36" text-anchor="middle" fill="#64748b" font-size="7" font-family="DM Sans,sans-serif">M1/M2 Polarisation</text>
         </g>
 
         <!-- Arrows 2→3 MICROGLIA -->
-        <line x1="360" y1="105" x2="428" y2="138" stroke="#1a6fd4" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowBlue)" opacity="0.8" class="sch-arrow"/>
-        <line x1="360" y1="215" x2="428" y2="182" stroke="#0d9488" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowTeal)" opacity="0.8" class="sch-arrow"/>
+        <line x1="360" y1="105" x2="428" y2="138" stroke="#1a6fd4" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowBlue)" opacity="0.8" class="sch-arrow"/>
+        <line x1="360" y1="215" x2="428" y2="182" stroke="#0d9488" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowTeal)" opacity="0.8" class="sch-arrow"/>
 
         <!-- ── NODE 3: MICROGLIA (CENTRAL) ── -->
         <g class="sch-node" transform="translate(510,160)">
           <!-- Microglia-like branching shape -->
-          <circle r="62" fill="#0d1b35" stroke="url(#axGrad)" stroke-width="2.5" filter="url(#glow)"/>
-          <circle r="62" fill="none" stroke="url(#axGrad)" stroke-width="1" opacity="0.25" class="pulse-ring-slow"/>
+          <circle r="62" fill="#f8fafc" stroke="url(#axGrad)" stroke-width="2.5"/>
+          <circle r="62" fill="none" stroke="url(#axGrad)" stroke-width="1" opacity="0.4" class="pulse-ring-slow"/>
           <!-- Branching processes -->
           <line x1="0" y1="-62" x2="0" y2="-82" stroke="#1a6fd4" stroke-width="1.5" opacity="0.5"/>
           <line x1="44" y1="-44" x2="58" y2="-58" stroke="#1a6fd4" stroke-width="1.5" opacity="0.5"/>
@@ -1476,20 +1484,20 @@ footer {
           <line x1="-62" y1="0" x2="-82" y2="0" stroke="#1a6fd4" stroke-width="1.5" opacity="0.5"/>
           <line x1="-44" y1="-44" x2="-58" y2="-58" stroke="#0d9488" stroke-width="1.5" opacity="0.5"/>
           <!-- Process tips -->
-          <circle cx="0" cy="-86" r="4" fill="#1a6fd4" opacity="0.7"/>
-          <circle cx="62" cy="-62" r="3.5" fill="#1a6fd4" opacity="0.7"/>
-          <circle cx="86" cy="0" r="4" fill="#0d9488" opacity="0.7"/>
-          <circle cx="62" cy="62" r="3.5" fill="#0d9488" opacity="0.7"/>
-          <circle cx="0" cy="86" r="4" fill="#1a6fd4" opacity="0.7"/>
-          <circle cx="-62" cy="62" r="3.5" fill="#0d9488" opacity="0.7"/>
-          <circle cx="-86" cy="0" r="4" fill="#1a6fd4" opacity="0.7"/>
-          <circle cx="-62" cy="-62" r="3.5" fill="#0d9488" opacity="0.7"/>
+          <circle cx="0" cy="-86" r="4" fill="#1a6fd4" opacity="0.9"/>
+          <circle cx="62" cy="-62" r="3.5" fill="#1a6fd4" opacity="0.9"/>
+          <circle cx="86" cy="0" r="4" fill="#0d9488" opacity="0.9"/>
+          <circle cx="62" cy="62" r="3.5" fill="#0d9488" opacity="0.9"/>
+          <circle cx="0" cy="86" r="4" fill="#1a6fd4" opacity="0.9"/>
+          <circle cx="-62" cy="62" r="3.5" fill="#0d9488" opacity="0.9"/>
+          <circle cx="-86" cy="0" r="4" fill="#1a6fd4" opacity="0.9"/>
+          <circle cx="-62" cy="-62" r="3.5" fill="#0d9488" opacity="0.9"/>
           <!-- Nucleus -->
-          <circle r="18" fill="#1b3a60" stroke="#2a6496" stroke-width="1.2"/>
-          <text y="-9" text-anchor="middle" fill="#90bde0" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">MICRO-</text>
-          <text y="3" text-anchor="middle" fill="#90bde0" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">GLIA</text>
-          <text y="42" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7" font-family="DM Sans,sans-serif">Brain Immune Cell</text>
-          <text y="-46" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7" font-family="DM Sans,sans-serif">Phagocytosis · BBB</text>
+          <circle r="18" fill="#1e293b" stroke="#055C9D" stroke-width="1.2"/>
+          <text y="-9" text-anchor="middle" fill="#ffffff" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">MICRO-</text>
+          <text y="3" text-anchor="middle" fill="#ffffff" font-size="8" font-family="DM Sans,sans-serif" font-weight="600">GLIA</text>
+          <text y="42" text-anchor="middle" fill="#334155" font-size="7" font-weight="600" font-family="DM Sans,sans-serif">Brain Immune Cell</text>
+          <text y="-46" text-anchor="middle" fill="#334155" font-size="7" font-weight="600" font-family="DM Sans,sans-serif">Phagocytosis · BBB</text>
         </g>
 
         <!-- Arrows 3→4 outcomes -->
