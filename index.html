@@ -1169,29 +1169,20 @@ footer {
 
 /* Mobile nav open */
 .nav-mobile {
-  display: block;
+  display: none;
   position: fixed; top: 60px; left: 0; right: 0;
   background: rgba(10,20,42,0.99);
   backdrop-filter: blur(16px);
   z-index: 490;
   border-bottom: 1px solid rgba(255,255,255,0.08);
-  max-height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
-              opacity 0.3s ease,
-              visibility 0s linear 0.35s;
   opacity: 0;
-  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 .nav-mobile.open {
-  max-height: 480px;
+  display: block;
   opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1),
-              opacity 0.3s ease,
-              visibility 0s linear 0s;
+  transform: translateY(0);
 }
 .nav-mobile a {
   display: flex; align-items: center; gap: 10px;
@@ -2445,8 +2436,8 @@ const FALLBACK_TEAM = [
 ];
 
 async function loadTeam() {
-  let members = await sbFetch('team', 'sort_order.asc');
-  if (!members.length) members = FALLBACK_TEAM;
+  // Use fallback directly — team rarely changes, admin panel updates fallback manually
+  const members = FALLBACK_TEAM;
   const grid = document.getElementById('member-grid');
   if (!grid) return;
 
@@ -2585,45 +2576,13 @@ async function loadAwards() {
 // Run all on load — fully non-blocking, page renders immediately
 // Show fallback team immediately, then replace with live data
 document.addEventListener('DOMContentLoaded', () => {
-  // Render fallback instantly so team is never empty
-  const grid = document.getElementById('member-grid');
-  if (grid) {
-    const delays = ['','reveal-delay-1','reveal-delay-2','reveal-delay-3','reveal-delay-4',''];
-    grid.innerHTML = FALLBACK_TEAM.map((m, i) => {
-      const ini = initials(m.name);
-      const photo = m.photo_url
-        ? `<img src="${m.photo_url}" alt="${m.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">${ini}</div>`
-        : `<div class="init">${ini}</div>`;
-      return `
-        <div class="mc reveal ${delays[i % delays.length]}">
-          <div class="mc-photo">${photo}</div>
-          <div class="mc-info">
-            <div class="mc-name">${m.name}</div>
-            <div class="mc-role">${m.role}</div>
-            ${m.fellowship ? `<div class="mc-fellowship">${m.fellowship}</div>` : ''}
-          </div>
-        </div>`;
-    }).join('') + `
-      <a class="mc reveal" href="https://forms.gle/q8cQMdwXtGKwGqa49" target="_blank"
-         style="border-style:dashed;background:transparent;text-decoration:none;cursor:pointer;">
-        <div class="mc-photo" style="background:linear-gradient(135deg,#eef2f7,#e0e8f4);">
-          <div class="init" style="color:#94a3b8;font-size:2.8rem;">+</div>
-        </div>
-        <div class="mc-info">
-          <div class="mc-name" style="color:var(--accent);">Join the Group</div>
-          <div class="mc-role" style="color:var(--muted);">Open Positions</div>
-          <div class="mc-fellowship">PhD · Postdoc · Intern · JRF</div>
-          <div style="margin-top:10px;font-size:0.7rem;color:var(--accent);font-weight:600;">Apply Here →</div>
-        </div>
-      </a>`;
-    document.querySelectorAll('#member-grid .reveal').forEach(el => observer && observer.observe(el));
-  }
+  // Render team IMMEDIATELY - no async, no waiting
+  loadTeam();
 
-  // Then fetch live data from Supabase in background
+  // Load news and awards from Supabase after short delay
   setTimeout(() => {
-    loadTeam().catch(() => {});
     loadNews().catch(() => {});
     loadAwards().catch(() => {});
-  }, 300);
+  }, 500);
 });
 </script>
