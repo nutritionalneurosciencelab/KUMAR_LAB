@@ -1113,54 +1113,51 @@ footer {
   width: 100%; height: auto; display: block;
 }
 
-/* ── RESEARCH SLIDESHOW (desktop only) ── */
+/* ── CORE RESEARCH AXIS SLIDESHOW (desktop only) ── */
 @media (min-width: 901px) {
   .research-slider-wrapper {
     position: relative;
-    margin-top: 40px;
+    margin-top: 20px;
   }
+  /* The overflow box — MUST have explicit width so children can resolve 100% */
   .research-slider-overflow {
+    width: 100%;
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
   }
+  /* The sliding track — same width as the overflow box */
   .research-grid-slide {
     display: flex;
-    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    width: 100%;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
     will-change: transform;
   }
-  .research-grid-slide .rc {
-    min-width: 100%;
-    flex-shrink: 0;
-    border-radius: 14px;
-    box-shadow: 0 8px 40px rgba(13,27,53,0.10);
+  /* Each slide is exactly the overflow-box width and never shrinks */
+  .research-grid-slide .ca-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
-  .research-grid-slide .rc-img {
-    height: 320px;
+  /* Make images fill the slide nicely */
+  .research-grid-slide .ca-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
   }
-  .research-grid-slide .rc-body {
-    padding: 32px 36px;
-  }
-  .research-grid-slide .rc-body h3 {
-    font-size: 1.45rem;
+  /* Slide label */
+  .research-grid-slide .ca-slide .sp-label {
+    font-size: 0.82rem;
     margin-bottom: 16px;
-    line-height: 1.3;
   }
-  .research-grid-slide .rc-body p {
-    font-size: 1rem;
-    line-height: 1.9;
-    color: var(--text);
-  }
-  .research-grid-slide .rc-tag {
-    margin-top: 20px;
-    font-size: 0.72rem;
-    padding: 5px 14px;
-  }
+  /* Nav row */
   .rs-nav {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 16px;
-    margin-top: 24px;
+    margin-top: 20px;
   }
   .rs-btn {
     width: 44px; height: 44px;
@@ -1195,7 +1192,6 @@ footer {
     background: var(--navy);
     transform: scale(1.35);
   }
-  /* Counter label */
   .rs-counter {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
@@ -1204,13 +1200,14 @@ footer {
     min-width: 48px;
     text-align: center;
   }
+  /* On desktop: hide mobile grid (the schematic-sub-grid fallback) */
+  .ca-mobile-grid { display: none !important; }
 }
-/* On mobile: hide slider nav controls */
+/* On mobile: hide slider UI; show the regular 3-col grid instead */
 @media (max-width: 900px) {
   .rs-nav { display: none !important; }
-  .research-slider-wrapper { margin-top: 0; }
-  .research-slider-overflow { overflow: visible; border-radius: 0; }
-  .research-grid-slide { display: contents; }
+  .research-slider-wrapper { display: none !important; }
+  .ca-mobile-grid { display: grid !important; }
 }
 
 /* ── RESPONSIVE ── */
@@ -1502,33 +1499,33 @@ footer {
     <div class="section-eyebrow" style="justify-content:center; margin-bottom:18px;">Research Framework</div>
     <div class="section-heading" style="text-align:center; margin-bottom:24px;">The Lab's Core Research Axis</div>
 
-    <!-- Desktop slideshow for Core Research Axis -->
-    <div class="research-slider-wrapper" style="margin-top:20px;">
+    <!-- Desktop slideshow (one panel at a time) -->
+    <div class="research-slider-wrapper">
       <div class="research-slider-overflow">
         <div class="research-grid-slide" id="ca-slide-track">
 
-          <!-- Panel A -->
-          <div class="schematic-panel" style="min-width:100%; flex-shrink:0;">
+          <!-- Slide 1 -->
+          <div class="ca-slide schematic-panel">
             <div class="sp-label">Neurobiology of Food Preference and Compulsive Eating</div>
-            <img src="core2.jpeg" class="sp-svg" alt="Microglial polarization diagram" loading="lazy" style="border-radius:4px;"/>
+            <img src="core2.jpeg" alt="Neurobiology of Food Preference" loading="lazy" style="border-radius:4px;"/>
           </div>
 
-          <!-- Panel B -->
-          <div class="schematic-panel" style="min-width:100%; flex-shrink:0;">
+          <!-- Slide 2 -->
+          <div class="ca-slide schematic-panel">
             <div class="sp-label">Immunometabolism</div>
-            <img src="core3.jpeg" class="sp-svg" alt="Gut-brain axis and dopamine circuit" loading="lazy" style="border-radius:4px;"/>
+            <img src="core3.jpeg" alt="Immunometabolism" loading="lazy" style="border-radius:4px;"/>
           </div>
 
-          <!-- Panel C -->
-          <div class="schematic-panel" style="min-width:100%; flex-shrink:0;">
+          <!-- Slide 3 -->
+          <div class="ca-slide schematic-panel">
             <div class="sp-label">Therapeutic Interventions</div>
-            <img src="core1.jpeg" class="sp-svg" alt="Dietary and pharmacological interventions" loading="lazy" style="border-radius:4px;"/>
+            <img src="core1.jpeg" alt="Therapeutic Interventions" loading="lazy" style="border-radius:4px;"/>
           </div>
 
         </div><!-- /track -->
       </div><!-- /overflow -->
 
-      <!-- Nav controls (hidden on mobile) -->
+      <!-- Nav controls (hidden on mobile via CSS) -->
       <div class="rs-nav">
         <button class="rs-btn" id="ca-prev" aria-label="Previous panel">&#10094;</button>
         <div class="rs-dots" id="ca-dots"></div>
@@ -1536,6 +1533,23 @@ footer {
         <button class="rs-btn" id="ca-next" aria-label="Next panel">&#10095;</button>
       </div>
     </div><!-- /slider-wrapper -->
+
+    <!-- Mobile fallback: original 3-col grid, hidden on desktop -->
+    <div class="schematic-sub-grid ca-mobile-grid">
+      <div class="schematic-panel">
+        <div class="sp-label">Neurobiology of Food Preference and Compulsive Eating</div>
+        <img src="core2.jpeg" class="sp-svg" alt="Microglial polarization diagram" loading="lazy" style="border-radius:4px;"/>
+      </div>
+      <div class="schematic-panel">
+        <div class="sp-label">Immunometabolism</div>
+        <img src="core3.jpeg" class="sp-svg" alt="Gut-brain axis and dopamine circuit" loading="lazy" style="border-radius:4px;"/>
+      </div>
+      <div class="schematic-panel">
+        <div class="sp-label">Therapeutic Interventions</div>
+        <img src="core1.jpeg" class="sp-svg" alt="Dietary and pharmacological interventions" loading="lazy" style="border-radius:4px;"/>
+      </div>
+    </div><!-- /mobile-grid -->
+
   </div><!-- /schematic-section -->
 
   <!-- ── RESEARCH ── -->
