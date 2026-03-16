@@ -1354,9 +1354,163 @@ footer {
   pointer-events: none;
   z-index: 100;
 }
+
+/* ── VACANCY POPUP ── */
+.vacancy-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,18,38,0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.vacancy-overlay.vp-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.vacancy-card {
+  background: #fff;
+  border-radius: 18px;
+  max-width: 480px; width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 30px 80px rgba(10,18,38,0.35),
+    0 0 0 1px rgba(255,255,255,0.06);
+  transform: translateY(28px) scale(0.97);
+  transition: transform 0.38s cubic-bezier(0.22,1,0.36,1), opacity 0.35s ease;
+  opacity: 0;
+}
+.vacancy-overlay.vp-visible .vacancy-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.vacancy-card-top {
+  background: linear-gradient(135deg, #1e293b 0%, #0d2540 60%, #0f3460 100%);
+  padding: 28px 28px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.vacancy-card-top::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 80%, rgba(5,92,157,0.35) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 80% at 90% 10%, rgba(139,0,0,0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+.vacancy-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(34,197,94,0.15);
+  border: 1px solid rgba(34,197,94,0.35);
+  color: #4ade80;
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 20px;
+  margin-bottom: 16px;
+  position: relative; z-index: 1;
+}
+.vacancy-badge::before {
+  content: '';
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #4ade80;
+  animation: pulse-dot 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.vacancy-card-top h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.45rem; color: #fff;
+  line-height: 1.25; margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
+.vacancy-card-top .vp-lab {
+  font-size: 0.72rem; color: rgba(255,255,255,0.5);
+  letter-spacing: 0.06em;
+  position: relative; z-index: 1;
+}
+.vacancy-close {
+  position: absolute; top: 14px; right: 16px;
+  width: 30px; height: 30px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  color: rgba(255,255,255,0.7);
+  font-size: 1.1rem; line-height: 1;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  z-index: 2;
+}
+.vacancy-close:hover { background: rgba(255,255,255,0.2); color: #fff; }
+.vacancy-card-body {
+  padding: 22px 28px 26px;
+}
+.vp-desc {
+  font-size: 0.9rem; color: #4a5568;
+  line-height: 1.8; margin-bottom: 22px;
+}
+.vp-cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: linear-gradient(135deg, #055C9D, #0284c7);
+  color: #fff;
+  text-decoration: none;
+  padding: 13px 24px;
+  border-radius: 10px;
+  font-size: 0.88rem; font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+  box-shadow: 0 6px 20px rgba(5,92,157,0.35);
+  width: 100%;
+  justify-content: center;
+}
+.vp-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(5,92,157,0.45);
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+}
+.vp-cta svg { width: 15px; height: 15px; flex-shrink: 0; }
+.vp-dismiss {
+  display: block; text-align: center;
+  margin-top: 14px;
+  font-size: 0.75rem; color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.2s;
+  background: none; border: none; width: 100%;
+}
+.vp-dismiss:hover { color: #64748b; }
+@media (max-width: 520px) {
+  .vacancy-card { border-radius: 14px; }
+  .vacancy-card-top { padding: 22px 20px 18px; }
+  .vacancy-card-body { padding: 18px 20px 22px; }
+  .vacancy-card-top h2 { font-size: 1.2rem; }
+}
 </style>
 </head>
 <body>
+
+<!-- ── VACANCY POPUP ── -->
+<div class="vacancy-overlay" id="vacancy-overlay" role="dialog" aria-modal="true" aria-labelledby="vp-title">
+  <div class="vacancy-card" id="vacancy-card">
+    <div class="vacancy-card-top">
+      <button class="vacancy-close" id="vp-close" aria-label="Close">&#x2715;</button>
+      <div class="vacancy-badge">Position Open</div>
+      <h2 id="vp-title"></h2>
+      <div class="vp-lab">NeuroMeT Lab &middot; BRIC-NABI, Mohali</div>
+    </div>
+    <div class="vacancy-card-body">
+      <div class="vp-desc" id="vp-desc"></div>
+      <a class="vp-cta" id="vp-apply" href="#" target="_blank" rel="noopener noreferrer">
+        Apply Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <button class="vp-dismiss" id="vp-dismiss">Remind me later</button>
+    </div>
+  </div>
+</div>
 
 <!-- ── NAV ── -->
 <nav id="main-nav">
@@ -2535,6 +2689,65 @@ async function loadAwards() {
   goTo(0);
 })();
 
+// ── VACANCY POPUP ────────────────────────────────────────
+async function loadVacancy() {
+  // Skip if already dismissed this session
+  if (sessionStorage.getItem('vp_dismissed')) return;
+
+  try {
+    const rows = await sbFetch('vacancies', 'created_at.asc');
+    if (!rows || !rows.length) return;
+    const v = rows[0];
+    if (!v.is_active) return;
+
+    // Populate popup content
+    const titleEl  = document.getElementById('vp-title');
+    const descEl   = document.getElementById('vp-desc');
+    const applyEl  = document.getElementById('vp-apply');
+    const overlay  = document.getElementById('vacancy-overlay');
+    const closeBtn = document.getElementById('vp-close');
+    const dismiss  = document.getElementById('vp-dismiss');
+
+    if (titleEl) titleEl.textContent = v.title || 'Position Available';
+    if (descEl)  descEl.textContent  = v.description || '';
+    if (applyEl) applyEl.href        = v.apply_url || 'https://www.nabi.res.in/career.php';
+
+    function closePopup() {
+      sessionStorage.setItem('vp_dismissed', '1');
+      if (overlay) {
+        overlay.classList.remove('vp-visible');
+        setTimeout(() => { overlay.style.display = 'none'; }, 400);
+      }
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closePopup);
+    if (dismiss)  dismiss.addEventListener('click', closePopup);
+    // Close on backdrop click
+    if (overlay) {
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) closePopup();
+      });
+    }
+    // Close on Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePopup();
+    });
+
+    // Show popup after 5-second delay (non-blocking)
+    setTimeout(() => {
+      if (overlay) {
+        overlay.style.display = 'flex';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => overlay.classList.add('vp-visible'));
+        });
+      }
+    }, 5000);
+
+  } catch (err) {
+    // Silently fail — vacancy popup is non-critical
+  }
+}
+
 // Run all on load — fully non-blocking, page renders immediately
 // Show fallback team immediately, then replace with live data
 document.addEventListener('DOMContentLoaded', () => {
@@ -2546,5 +2759,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadNews().catch(() => {});
     loadAwards().catch(() => {});
   }, 500);
+
+  // Load vacancy popup (non-blocking, after 5s)
+  loadVacancy().catch(() => {});
 });
 </script>
