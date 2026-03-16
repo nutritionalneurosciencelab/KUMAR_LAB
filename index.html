@@ -1113,6 +1113,106 @@ footer {
   width: 100%; height: auto; display: block;
 }
 
+/* ── RESEARCH SLIDESHOW (desktop only) ── */
+@media (min-width: 901px) {
+  .research-slider-wrapper {
+    position: relative;
+    margin-top: 40px;
+  }
+  .research-slider-overflow {
+    overflow: hidden;
+    border-radius: 14px;
+  }
+  .research-grid-slide {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+  .research-grid-slide .rc {
+    min-width: 100%;
+    flex-shrink: 0;
+    border-radius: 14px;
+    box-shadow: 0 8px 40px rgba(13,27,53,0.10);
+  }
+  .research-grid-slide .rc-img {
+    height: 320px;
+  }
+  .research-grid-slide .rc-body {
+    padding: 32px 36px;
+  }
+  .research-grid-slide .rc-body h3 {
+    font-size: 1.45rem;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .research-grid-slide .rc-body p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--text);
+  }
+  .research-grid-slide .rc-tag {
+    margin-top: 20px;
+    font-size: 0.72rem;
+    padding: 5px 14px;
+  }
+  .rs-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .rs-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--navy);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .rs-btn:hover {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+    transform: scale(1.08);
+  }
+  .rs-dots {
+    display: flex; gap: 8px; align-items: center;
+  }
+  .rs-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border);
+    border: none; padding: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .rs-dot.active {
+    background: var(--navy);
+    transform: scale(1.35);
+  }
+  /* Counter label */
+  .rs-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    min-width: 48px;
+    text-align: center;
+  }
+}
+/* On mobile: hide slider nav controls */
+@media (max-width: 900px) {
+  .rs-nav { display: none !important; }
+  .research-slider-wrapper { margin-top: 0; }
+  .research-slider-overflow { overflow: visible; border-radius: 0; }
+  .research-grid-slide { display: contents; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) {
   .research-visual { width: 320px; height: 320px; }
@@ -1430,46 +1530,63 @@ footer {
   <div class="section" id="research">
     <div class="section-eyebrow reveal">Research</div>
     <div class="section-heading reveal">Ongoing Projects</div>
-    <div class="section-body reveal">
-      <p>Our lab pursues three interconnected research areas that together address how nutrition and metabolism shape neuroimmune health and disease.</p>
+
+    <!-- Desktop slideshow wrapper -->
+    <div class="research-slider-wrapper">
+      <div class="research-slider-overflow">
+        <!-- On desktop: flex track. On mobile: display:contents so children flow into the grid below -->
+        <div class="research-grid-slide" id="research-slide-track">
+
+          <div class="rc reveal" data-category="all">
+            <div class="rc-img">
+              <img src="schema_panel_1.jpeg" alt="Neuroimmunometabolic Reprogramming" loading="lazy"/>
+            </div>
+            <div class="rc-body">
+              <h3>Neuroimmunometabolic Reprogramming</h3>
+              <p>We investigate how shifts in cellular and systemic metabolism reprogram neuroimmune responses — exploring the metabolic checkpoints, signalling cascades, and immune–brain axes that govern neurological health and disease susceptibility.</p>
+              <span class="rc-tag">Neuroimmunology · Immunometabolism</span>
+            </div>
+          </div>
+
+          <div class="rc reveal" data-category="all">
+            <div class="rc-img">
+              <img src="schema_panel_kd.jpeg" alt="Nutritional Interventions and Metabolic Therapies" loading="lazy"/>
+            </div>
+            <div class="rc-body">
+              <h3>Nutritional Interventions &amp; Metabolic Therapies</h3>
+              <p>We study how ketogenic diets and specific nutritional strategies modulate brain immunity, stress, and aging — investigating the therapeutic potential of dietary regimens and bioactive compounds across neurological and metabolic conditions.</p>
+              <span class="rc-tag">Nutritional Neuroscience · Precision Nutrition</span>
+            </div>
+          </div>
+
+          <div class="rc reveal" data-category="all">
+            <div class="rc-img">
+              <img src="schema_main.jpeg" alt="Neurobiology of Compulsive Eating" loading="lazy"/>
+            </div>
+            <div class="rc-body">
+              <h3>Neurobiology of Compulsive Eating &amp; Food Preference</h3>
+              <p>We explore the neural and immune mechanisms that drive compulsive eating behaviours and food preference — examining how brain reward circuits, neuroimmune signalling, and metabolic states interact to shape feeding behaviour and its disorders.</p>
+              <span class="rc-tag">Food Behaviour · Neuroimmune Circuits</span>
+            </div>
+          </div>
+
+        </div><!-- /track -->
+      </div><!-- /overflow -->
+
+      <!-- Nav controls: hidden on mobile via CSS -->
+      <div class="rs-nav">
+        <button class="rs-btn" id="rs-prev" aria-label="Previous project">&#10094;</button>
+        <div class="rs-dots" id="rs-dots"></div>
+        <span class="rs-counter" id="rs-counter">1 / 3</span>
+        <button class="rs-btn" id="rs-next" aria-label="Next project">&#10095;</button>
+      </div>
+    </div><!-- /slider-wrapper -->
+
+    <!-- Mobile fallback grid (hidden on desktop via JS) -->
+    <div class="research-grid" id="research-grid-mobile" style="grid-template-columns: repeat(3,1fr); margin-top:40px; display:none;">
+      <!-- populated by JS on mobile -->
     </div>
 
-    <div class="research-grid" id="research-grid" style="grid-template-columns: repeat(3,1fr); margin-top:40px;">
-
-      <div class="rc reveal" data-category="all">
-        <div class="rc-img">
-          <img src="schema_panel_1.jpeg" alt="Neuroimmunometabolic Reprogramming" loading="lazy"/>
-        </div>
-        <div class="rc-body">
-          <h3>Neuroimmunometabolic Reprogramming</h3>
-          <p>We investigate how shifts in cellular and systemic metabolism reprogram neuroimmune responses — exploring the metabolic checkpoints, signalling cascades, and immune–brain axes that govern neurological health and disease susceptibility.</p>
-          <span class="rc-tag">Neuroimmunology · Immunometabolism</span>
-        </div>
-      </div>
-
-      <div class="rc reveal reveal-delay-1" data-category="all">
-        <div class="rc-img">
-          <img src="schema_panel_kd.jpeg" alt="Nutritional Interventions and Metabolic Therapies" loading="lazy"/>
-        </div>
-        <div class="rc-body">
-          <h3>Nutritional Interventions &amp; Metabolic Therapies</h3>
-          <p>We study how ketogenic diets and specific nutritional strategies modulate brain immunity, stress, and aging — investigating the therapeutic potential of dietary regimens and bioactive compounds across neurological and metabolic conditions.</p>
-          <span class="rc-tag">Nutritional Neuroscience · Precision Nutrition</span>
-        </div>
-      </div>
-
-      <div class="rc reveal reveal-delay-2" data-category="all">
-        <div class="rc-img">
-          <img src="schema_main.jpeg" alt="Neurobiology of Compulsive Eating" loading="lazy"/>
-        </div>
-        <div class="rc-body">
-          <h3>Neurobiology of Compulsive Eating &amp; Food Preference</h3>
-          <p>We explore the neural and immune mechanisms that drive compulsive eating behaviours and food preference — examining how brain reward circuits, neuroimmune signalling, and metabolic states interact to shape feeding behaviour and its disorders.</p>
-          <span class="rc-tag">Food Behaviour · Neuroimmune Circuits</span>
-        </div>
-      </div>
-
-    </div>
   </div>
 
   <!-- ── TEAM ── -->
@@ -2339,6 +2456,76 @@ async function loadAwards() {
 
   document.querySelectorAll('#awards-grid .reveal').forEach(el => observer && observer.observe(el));
 }
+
+// ── RESEARCH SLIDESHOW ──────────────────────────────────────────────────────
+(function initResearchSlider() {
+  const DESKTOP = 901;
+
+  function isDesktop() { return window.innerWidth >= DESKTOP; }
+
+  const track   = document.getElementById('research-slide-track');
+  const prevBtn = document.getElementById('rs-prev');
+  const nextBtn = document.getElementById('rs-next');
+  const dotsEl  = document.getElementById('rs-dots');
+  const counter = document.getElementById('rs-counter');
+
+  if (!track) return;
+
+  const cards = Array.from(track.querySelectorAll('.rc'));
+  const total = cards.length;
+  let current = 0;
+
+  // Build dots
+  const dots = cards.map((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'rs-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+    return d;
+  });
+
+  function goTo(n) {
+    if (!isDesktop()) return;
+    current = (n + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    if (counter) counter.textContent = `${current + 1} / ${total}`;
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  // Keyboard support (left/right arrows when research section is in view)
+  document.addEventListener('keydown', e => {
+    if (!isDesktop()) return;
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  // Auto-play (pauses on hover)
+  let timer = setInterval(() => { if (isDesktop()) goTo(current + 1); }, 5000);
+  const wrapper = track.closest('.research-slider-wrapper');
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => clearInterval(timer));
+    wrapper.addEventListener('mouseleave', () => {
+      clearInterval(timer);
+      timer = setInterval(() => { if (isDesktop()) goTo(current + 1); }, 5000);
+    });
+  }
+
+  // Reset on resize (mobile → desktop or back)
+  window.addEventListener('resize', () => {
+    if (!isDesktop()) {
+      track.style.transform = '';
+    } else {
+      goTo(current);
+    }
+  });
+
+  // Initial state
+  goTo(0);
+})();
 
 // Run all on load — fully non-blocking, page renders immediately
 // Show fallback team immediately, then replace with live data
