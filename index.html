@@ -2459,12 +2459,13 @@ async function loadNews() {
         <div class="news-card-body">
           <div class="news-meta">
             <span class="news-date">${item.date_range}${item.location ? ' · ' + item.location : ''}</span>
-            <span class="news-badge conference">Event</span>
+            <span class="news-badge ${item.badge ? item.badge.toLowerCase() : 'event'}">${item.badge || 'Event'}</span>
           </div>
           <div class="news-title">${item.title}</div>
           <div class="news-body">
             ${item.description}
             ${item.acknowledgements ? `<div class="news-thanks" style="margin-top:12px;"><strong>Acknowledgements:</strong> ${item.acknowledgements}</div>` : ''}
+            ${item.people ? `<div class="news-people" style="margin-top:12px;">${item.people.split(',').map(p=>`<span class="news-person">${p.trim()}</span>`).join('')}</div>` : ''}
           </div>
         </div>
       </div>`;
@@ -2479,6 +2480,7 @@ async function loadNews() {
     const count = card.querySelector('.gallery-count');
     if (imgs.length < 2) return;
     let cur = 0;
+    let timer = null;
     function go(n) {
       imgs[cur].className = 'hidden';
       cur = (n + imgs.length) % imgs.length;
@@ -2486,7 +2488,12 @@ async function loadNews() {
       dots.forEach((d,i) => d.classList.toggle('active', i===cur));
       if (count) count.textContent = `${cur+1} / ${imgs.length}`;
     }
-    dots.forEach((d,i) => d.addEventListener('click', () => go(i)));
+    dots.forEach((d,i) => d.addEventListener('click', () => {
+      clearInterval(timer);
+      go(i);
+      timer = setInterval(() => go(cur+1), 3500);
+    }));
+    timer = setInterval(() => go(cur+1), 3500);
   });
 
   document.querySelectorAll('#news-grid .reveal').forEach(el => observer && observer.observe(el));
@@ -2687,10 +2694,14 @@ async function loadAlumni() {
 
   const delays = ['', 'reveal-delay-1', 'reveal-delay-2', 'reveal-delay-3'];
   grid.innerHTML = items.map((m, i) => {
-    const ini = initials(m.name);
+    const cleanName = m.name.replace(/^(Dr\.|Prof\.|Mr\.|Ms\.|Mrs\.)\s*/i, '');
+    const ini = initials(cleanName);
+    const photoHTML = m.photo_url 
+      ? `<img src="${m.photo_url}" alt="${m.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>`
+      : '';
     return `
       <div class="alum reveal ${delays[i % delays.length]}">
-        <div class="alum-avatar">${ini}</div>
+        <div class="alum-avatar" style="overflow:hidden;">${photoHTML}<span style="${m.photo_url ? 'display:none;' : ''}">${ini}</span></div>
         <div class="alum-info">
           <div class="alum-name">${m.name}</div>
           <div class="alum-was">${m.role_was}</div>

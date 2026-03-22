@@ -23,6 +23,8 @@ create table if not exists news (
   description text default '',
   images text[] default '{}',
   acknowledgements text default '',
+  badge text default 'Event',
+  people text default '',
   sort_order integer default 0,
   created_at timestamptz default now()
 );
@@ -121,6 +123,7 @@ create table if not exists alumni (
   role_was text default 'Former Lab Member',
   role_now text default '',
   link_url text default '',
+  photo_url text default '',
   sort_order integer default 0,
   created_at timestamptz default now()
 );
