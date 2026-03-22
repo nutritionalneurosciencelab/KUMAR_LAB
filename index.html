@@ -2705,7 +2705,7 @@ async function loadAlumni() {
         <div class="alum-info">
           <div class="alum-name">${m.name}</div>
           <div class="alum-was">${m.role_was}</div>
-          <div class="alum-now">${m.role_now}</div>
+          ${m.role_now || m.current_institute ? `<div class="alum-now">📌 ${m.role_now}${m.current_institute ? `<br><span style="font-size:0.8rem; font-weight:400; color:var(--muted);">${m.current_institute}</span>` : ''}</div>` : ''}
           ${m.link_url ? `<a class="alum-link" href="${m.link_url}" target="_blank">🔗 LinkedIn</a>` : ''}
         </div>
       </div>`;

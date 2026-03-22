@@ -124,6 +124,7 @@ create table if not exists alumni (
   role_now text default '',
   link_url text default '',
   photo_url text default '',
+  current_institute text default '',
   sort_order integer default 0,
   created_at timestamptz default now()
 );
