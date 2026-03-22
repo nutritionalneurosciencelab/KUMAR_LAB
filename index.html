@@ -2385,12 +2385,12 @@ function initials(name) {
 
 // ── TEAM ──────────────────────────────────────────
 const FALLBACK_TEAM = [
-  { name:'Babita Bhatt',       role:'Research Scholar', fellowship:'WISE PhD',      photo_url:'team_babita.jpeg' },
-  { name:'Chitralekha Gusain', role:'Research Scholar', fellowship:'NABI Core SRF', photo_url:'team_chitra.jpeg' },
-  { name:'Arunima Das',        role:'Research Scholar', fellowship:'UGC JRF',       photo_url:'team_arunima.jpeg' },
-  { name:'Gauri Chaudhari',    role:'Research Scholar', fellowship:'UGC JRF',       photo_url:'team_gauri.jpeg' },
-  { name:'Sumit Sutariya',     role:'Research Scholar', fellowship:'DBT JRF',       photo_url:'team_sumit.jpeg' },
-  { name:'Vaishnavi Chaubey',  role:'Research Scholar', fellowship:'PRS 1',         photo_url:'team_vaishnavi.jpeg' },
+  { name:'Babita Bhatt',       role:'Research Scholar', fellowship:'WISE PhD',      linkedin_url:'', photo_url:'team_babita.jpeg' },
+  { name:'Chitralekha Gusain', role:'Research Scholar', fellowship:'NABI Core SRF', linkedin_url:'', photo_url:'team_chitra.jpeg' },
+  { name:'Arunima Das',        role:'Research Scholar', fellowship:'UGC JRF',       linkedin_url:'', photo_url:'team_arunima.jpeg' },
+  { name:'Gauri Chaudhari',    role:'Research Scholar', fellowship:'UGC JRF',       linkedin_url:'', photo_url:'team_gauri.jpeg' },
+  { name:'Sumit Sutariya',     role:'Research Scholar', fellowship:'DBT JRF',       linkedin_url:'', photo_url:'team_sumit.jpeg' },
+  { name:'Vaishnavi Chaubey',  role:'Research Scholar', fellowship:'PRS 1',         linkedin_url:'', photo_url:'team_vaishnavi.jpeg' },
 ];
 
 async function loadTeam() {
@@ -2416,6 +2416,7 @@ async function loadTeam() {
           <div class="mc-name">${m.name}</div>
           <div class="mc-role">${m.role}</div>
           ${m.fellowship ? `<div class="mc-fellowship">${m.fellowship}</div>` : ''}
+          ${m.linkedin_url ? `<div class="mc-links" style="margin-top:10px;"><a class="mc-link" href="${m.linkedin_url}" target="_blank">🔗 LinkedIn</a></div>` : ''}
         </div>
       </div>`;
   }).join('') + `
