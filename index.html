@@ -1914,7 +1914,7 @@ footer {
     <div class="section-body reveal">
       <p>Former members of the MK lab who have gone on to exciting positions in research and academia.</p>
     </div>
-    <div class="alumni-grid">
+    <div class="alumni-grid" id="alumni-grid">
 
       <div class="alum reveal">
         <div class="alum-avatar">AKR</div>
@@ -2602,17 +2602,31 @@ async function loadAwards() {
 
   grid.innerHTML = Object.entries(grouped).map(([type, group]) => {
     if (!group.length) return '';
+    const limit = 4;
+    const isExpandable = type === 'grant' || type === 'fellowship';
+    const limitExceeded = isExpandable && group.length > limit;
+
+    const itemsHTML = group.map((item, idx) => {
+      const isHidden = limitExceeded && idx >= limit;
+      return `
+          <div class="aw reveal ${isHidden ? 'hidden-aw ' + type + '-extra' : ''}" style="border-left-color:${colors[type]};${isHidden ? ' display:none;' : ''}">
+            <div class="aw-title">${item.title}</div>
+            <div class="aw-org">${item.org}${item.year ? ' · ' + item.year : ''}${item.recipient ? ' · ' + item.recipient : ''}</div>
+            ${item.amount ? `<div style="font-size:0.78rem;color:${colors[type]};font-weight:600;margin-top:4px;">${item.amount}</div>` : ''}
+          </div>`;
+    }).join('');
+
+    const moreBtn = limitExceeded 
+      ? `<button class="btn-more-aw load-more-btn" onclick="const els=this.parentElement.querySelectorAll('.${type}-extra'); els.forEach(e => {e.style.display='block'; setTimeout(() => e.classList.add('visible'), 50);}); this.style.display='none';" style="font-size:0.8rem;font-weight:600;color:var(--accent);text-decoration:underline;background:transparent;border:none;cursor:pointer;margin-top:12px;display:block;">Show More ${labels[type]}</button>`
+      : '';
+
     return `
       <div style="margin-bottom:32px;">
         <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:14px;">
           ${icons[type]} ${labels[type]}
         </div>
-        ${group.map(item => `
-          <div class="aw reveal" style="border-left-color:${colors[type]}">
-            <div class="aw-title">${item.title}</div>
-            <div class="aw-org">${item.org}${item.year ? ' · ' + item.year : ''}${item.recipient ? ' · ' + item.recipient : ''}</div>
-            ${item.amount ? `<div style="font-size:0.78rem;color:${colors[type]};font-weight:600;margin-top:4px;">${item.amount}</div>` : ''}
-          </div>`).join('')}
+        ${itemsHTML}
+        ${moreBtn}
       </div>`;
   }).join('');
 
@@ -2747,11 +2761,42 @@ async function loadVacancy() {
   }
 }
 
+// ── ALUMNI ────────────────────────────────────────
+const FALLBACK_ALUMNI = [
+  { name: 'Dr. Anil Kumar Rana', role_was: 'Former Lab Member · PhD, Neuroscience', role_now: '📌 Project Research Scientist 2, INST Mohali<br><span style="font-size:0.78rem; color:var(--muted);">Institute of Nano Science and Technology</span>', link_url: 'https://www.linkedin.com/in/anilneuro/' },
+  { name: 'Dr. Nisha Gautam', role_was: 'Former Lab Member · PhD', role_now: '📌 Senior Specialist Research Engineer', link_url: 'https://www.linkedin.com/in/nisha-gautam-ph-d-3ab91082/' }
+];
+async function loadAlumni() {
+  let items = await sbFetch('alumni', 'sort_order.asc');
+  if (!items || items.length === 0) {
+    items = FALLBACK_ALUMNI;
+  }
+  const grid = document.getElementById('alumni-grid');
+  if (!grid) return;
+
+  const delays = ['', 'reveal-delay-1', 'reveal-delay-2', 'reveal-delay-3'];
+  grid.innerHTML = items.map((m, i) => {
+    const ini = initials(m.name);
+    return `
+      <div class="alum reveal ${delays[i % delays.length]}">
+        <div class="alum-avatar">${ini}</div>
+        <div class="alum-info">
+          <div class="alum-name">${m.name}</div>
+          <div class="alum-was">${m.role_was}</div>
+          <div class="alum-now">${m.role_now}</div>
+          ${m.link_url ? `<a class="alum-link" href="${m.link_url}" target="_blank">🔗 LinkedIn</a>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+  document.querySelectorAll('#alumni-grid .reveal').forEach(el => observer && observer.observe(el));
+}
+
 // Run all on load — fully non-blocking, page renders immediately
 // Show fallback team immediately, then replace with live data
 document.addEventListener('DOMContentLoaded', () => {
   // Render team IMMEDIATELY - no async, no waiting
   loadTeam();
+  loadAlumni();
 
   // Load news and awards from Supabase after short delay
   setTimeout(() => {

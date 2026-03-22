@@ -111,3 +111,20 @@ values (
   'https://www.nabi.res.in/career.php'
 )
 on conflict do nothing;
+
+-- ============================================
+-- 5. ALUMNI
+-- ============================================
+create table if not exists alumni (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  role_was text default 'Former Lab Member',
+  role_now text default '',
+  link_url text default '',
+  sort_order integer default 0,
+  created_at timestamptz default now()
+);
+
+alter table alumni enable row level security;
+create policy "public read alumni" on alumni for select using (true);
+create policy "anon write alumni" on alumni for all using (true) with check (true);
