@@ -2368,7 +2368,8 @@ async function sbFetch(table, order) {
     const url = `${SUPA_URL}/rest/v1/${table}?select=*&order=${order}`;
     const res = await fetch(url, {
       headers: { apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY },
-      signal: controller.signal
+      signal: controller.signal,
+      cache: 'no-store'
     });
     clearTimeout(timeout);
     if (!res.ok) return [];
@@ -2717,15 +2718,11 @@ async function loadAlumni() {
 // Run all on load — fully non-blocking, page renders immediately
 // Show fallback team immediately, then replace with live data
 document.addEventListener('DOMContentLoaded', () => {
-  // Render team IMMEDIATELY - no async, no waiting
+  // Render all sections immediately - no delays
   loadTeam();
   loadAlumni();
-
-  // Load news and awards from Supabase after short delay
-  setTimeout(() => {
-    loadNews().catch(() => {});
-    loadAwards().catch(() => {});
-  }, 500);
+  loadNews().catch(() => {});
+  loadAwards().catch(() => {});
 
   // Load vacancy popup (non-blocking, after 5s)
   loadVacancy().catch(() => {});
