@@ -2364,7 +2364,7 @@ const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 async function sbFetch(table, order) {
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 1500);
+    const timeout = setTimeout(() => controller.abort(), 6000);
     const url = `${SUPA_URL}/rest/v1/${table}?select=*&order=${order}`;
     const res = await fetch(url, {
       headers: { apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY },
