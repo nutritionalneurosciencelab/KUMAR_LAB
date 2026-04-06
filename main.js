@@ -25,7 +25,7 @@ function updateGrid(grid, html, callback) {
   }, 400);
 }
 
-// ── HERO CANVAS: Animated neural network ──
+// ── HERO CANVAS: Subtle neural lattice ──
 (function() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
@@ -39,45 +39,45 @@ function updateGrid(grid, html, callback) {
   window.addEventListener('resize', resize);
 
   const nodes = [];
-  const NUM = 70;
+  const NUM = 38; // fewer nodes = cleaner, less playful
 
   for (let i = 0; i < NUM; i++) {
     nodes.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      r: Math.random() * 2.5 + 1
+      vx: (Math.random() - 0.5) * 0.12, // much slower drift
+      vy: (Math.random() - 0.5) * 0.12,
+      r: Math.random() * 1.2 + 0.4      // smaller nodes
     });
   }
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw connections
+    // Draw connections — very faint, dark monochrome
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const dx = nodes[i].x - nodes[j].x;
         const dy = nodes[i].y - nodes[j].y;
         const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 130) {
+        if (dist < 140) {
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(100,170,255,${0.5 * (1 - dist/130)})`;
-          ctx.lineWidth = 0.7;
+          // monochrome, very low opacity — scales down further with distance
+          ctx.strokeStyle = `rgba(30,41,59,${0.09 * (1 - dist/140)})`;
+          ctx.lineWidth = 0.5;
           ctx.stroke();
         }
       }
     }
 
-    // Draw nodes
+    // Draw nodes — tiny dark dots, barely visible
     for (const n of nodes) {
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(120,190,255,0.8)';
+      ctx.fillStyle = 'rgba(30,41,59,0.15)';
       ctx.fill();
-      // update
       n.x += n.vx; n.y += n.vy;
       if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
       if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
