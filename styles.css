@@ -144,6 +144,19 @@ nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
 .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* ── SCROLL PROGRESS ── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent);
+  z-index: 1000;
+  width: 0%;
+  transition: width 0.15s ease-out;
+  box-shadow: 0 1px 4px rgba(56,189,248,0.4);
+}
+
 /* ── THEME TOGGLE SWITCH ── */
 .theme-toggle-btn {
   background: transparent;
@@ -698,9 +711,34 @@ nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
 .mc-link:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
 
 /* ── PUBLICATIONS ── */
+.pub-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.pub-search-wrapper {
+  max-width: 500px;
+  width: 100%;
+}
+.pub-search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background: var(--white);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+.pub-search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.2);
+}
 .pub-filters {
-  display: flex; gap: 8px; flex-wrap: wrap;
-  margin-top: 32px; margin-bottom: 28px;
+  display: flex; gap: 10px; flex-wrap: wrap;
 }
 .pub-filter {
   padding: 6px 16px;
@@ -885,11 +923,15 @@ footer {
   text-decoration: none; font-size: 1.2rem;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   opacity: 0; transform: translateY(16px);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   z-index: 400;
 }
 .back-top.visible { opacity: 1; transform: translateY(0); }
-.back-top:hover { background: var(--accent); transform: translateY(-3px); }
+.back-top:hover { 
+  background: var(--accent); 
+  transform: translateY(-5px) scale(1.05); 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
 
 /* ── NEWS & UPDATES ── */
 .news-grid {

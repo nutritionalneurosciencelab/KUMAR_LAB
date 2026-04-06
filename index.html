@@ -77,14 +77,16 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Scroll Progress Indicator -->
+  <div id="scroll-progress"></div>
 
 <!-- ── VACANCY POPUP ── -->
 <div class="vacancy-overlay" id="vacancy-overlay" role="dialog" aria-modal="true" aria-labelledby="vp-title">
   <div class="vacancy-card" id="vacancy-card">
     <div class="vacancy-card-top">
-      <button class="vacancy-close" id="vp-close" aria-label="Close">&#x2715;</button>
-      <div class="vacancy-badge">Position Open</div>
-      <h2 id="vp-title"></h2>
+      <button class="vp-close" id="vp-close" aria-label="Close vacancy popup">×</button>
+      <div style="font-size:2rem; margin-bottom:12px;">🌟</div>
+      <div class="vp-title" id="vp-title">Join Our Lab</div>
       <div class="vp-lab">NeuroMeT Lab &middot; BRIC-NABI, Mohali</div>
     </div>
     <div class="vacancy-card-body">
@@ -391,7 +393,11 @@
       </p>
     </div>
 
-    <div class="pub-filters reveal" id="pub-filters">
+    <div class="pub-controls">
+      <div class="pub-search-wrapper reveal">
+        <input type="text" id="pub-search" class="pub-search-input" placeholder="Search publications by title, author, or keyword..." aria-label="Search publications">
+      </div>
+      <div class="pub-filters reveal" id="pub-filters">
       <button class="pub-filter active" data-year="all">All Years</button>
       <button class="pub-filter" data-year="2025">2025</button>
       <button class="pub-filter" data-year="2024">2024</button>
@@ -613,6 +619,13 @@
 </div>
 
 <!-- Back to top -->
-<a class="back-top" href="#home" id="back-top">↑</a>
+<a href="#" class="back-top" id="back-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="5"></line>
+    <polyline points="5 12 12 5 19 12"></polyline>
+  </svg>
+</a>
 
 <script src="main.js" defer></script>
+</body>
+</html>

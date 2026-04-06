@@ -105,6 +105,13 @@ const sections = document.querySelectorAll('[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
 
 window.addEventListener('scroll', () => {
+  // scroll progress indicator
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  const scrollProg = document.getElementById('scroll-progress');
+  if (scrollProg) scrollProg.style.width = scrolled + '%';
+
   // shadow
   if (window.scrollY > 10) mainNav.classList.add('scrolled');
   else mainNav.classList.remove('scrolled');
@@ -173,34 +180,56 @@ rtabs.forEach(tab => {
   });
 });
 
-// ── PUBLICATION YEAR FILTER ──
+// ── PUBLICATION YEAR & SEARCH FILTER ──
 const pubFilters = document.querySelectorAll('.pub-filter');
+const pubSearch = document.getElementById('pub-search');
 const pubs = document.querySelectorAll('.pub');
+
+function filterPubs() {
+  const activeBtn = document.querySelector('.pub-filter.active');
+  const year = activeBtn ? activeBtn.dataset.year : 'all';
+  const query = pubSearch ? pubSearch.value.toLowerCase() : '';
+
+  pubs.forEach(pub => {
+    const pubYear = pub.dataset.year;
+    const pubText = pub.textContent.toLowerCase();
+    
+    const yearMatch = year === 'all' || pubYear === year;
+    const searchMatch = query === '' || pubText.includes(query);
+
+    if (yearMatch && searchMatch) {
+      pub.style.display = '';
+    } else {
+      pub.style.display = 'none';
+    }
+  });
+}
+
 pubFilters.forEach(btn => {
   btn.addEventListener('click', () => {
     pubFilters.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const year = btn.dataset.year;
-    pubs.forEach(pub => {
-      if (year === 'all' || pub.dataset.year === year) {
-        pub.style.display = '';
-      } else {
-        pub.style.display = 'none';
-      }
-    });
+    filterPubs();
   });
 });
+
+if (pubSearch) {
+  pubSearch.addEventListener('input', filterPubs);
+}
 
 // ── TAG CLICK → filter pubs ──
 document.querySelectorAll('.tag').forEach(tag => {
   tag.addEventListener('click', () => {
     const keyword = tag.textContent.trim().toLowerCase();
-    pubs.forEach(pub => {
-      const tags = pub.querySelectorAll('.tag');
-      const match = Array.from(tags).some(t => t.textContent.toLowerCase().includes(keyword));
-      pub.style.display = match ? '' : 'none';
-    });
+    
+    if (pubSearch) {
+      pubSearch.value = keyword;
+    }
+    
     pubFilters.forEach(b => b.classList.remove('active'));
+    document.querySelector('.pub-filter[data-year="all"]').classList.add('active');
+    
+    filterPubs();
     // scroll to pubs
     document.getElementById('publications').scrollIntoView({ behavior: 'smooth' });
   });
@@ -420,7 +449,7 @@ async function loadTeam() {
   const newHTML = members.map((m, i) => {
     const ini = initials(m.name);
     const photo = m.photo_url
-      ? `<img src="${m.photo_url}" alt="${m.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">${ini}</div>`
+      ? `<img loading="lazy" decoding="async" src="${m.photo_url}" alt="${m.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">${ini}</div>`
       : `<div class="init">${ini}</div>`;
     return `
       <div class="mc reveal ${delays[i % delays.length]}">
@@ -484,8 +513,8 @@ async function loadNews() {
     return `
       <div class="news-card reveal">
         <div class="news-card-gallery">
-          <img src="${thumb}" alt="${item.title}" class="active" onerror="this.parentElement.style.background='#1a2a44'"/>
-          ${imgs.slice(1).map(u => `<img src="${u}" alt="" class="hidden"/>`).join('')}
+          <img loading="lazy" decoding="async" src="${thumb}" alt="${item.title}" class="active" onerror="this.parentElement.style.background='#1a2a44'"/>
+          ${imgs.slice(1).map(u => `<img loading="lazy" decoding="async" src="${u}" alt="" class="hidden"/>`).join('')}
           ${imgs.length > 1 ? `<span class="gallery-count">1 / ${imgs.length}</span>` : ''}
           <div class="gallery-dots">${dots}</div>
         </div>
@@ -754,7 +783,7 @@ async function loadAlumni() {
     const cleanName = m.name.replace(/^(Dr\.|Prof\.|Mr\.|Ms\.|Mrs\.)\s*/i, '');
     const ini = initials(cleanName);
     const photoHTML = m.photo_url 
-      ? `<img src="${m.photo_url}" alt="${m.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>`
+      ? `<img loading="lazy" decoding="async" src="${m.photo_url}" alt="${m.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>`
       : '';
     return `
       <div class="alum reveal ${delays[i % delays.length]}">
