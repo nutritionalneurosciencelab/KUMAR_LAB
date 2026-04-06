@@ -1488,6 +1488,26 @@ footer {
   .vacancy-card-body { padding: 18px 20px 22px; }
   .vacancy-card-top h2 { font-size: 1.2rem; }
 }
+
+/* ── SKELETON CSS ── */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.skeleton-box {
+  position: relative;
+  overflow: hidden;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+}
+.skeleton-box::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
 </style>
 </head>
 <body>
@@ -2395,13 +2415,25 @@ const FALLBACK_TEAM = [
 ];
 
 async function loadTeam() {
+  const grid = document.getElementById('member-grid');
+  if (grid) {
+    grid.innerHTML = Array(6).fill(`
+      <div class="mc reveal" style="background:#fff; border:1px solid var(--border);">
+        <div class="mc-photo skeleton-box" style="height:250px;"></div>
+        <div class="mc-info" style="width:100%;">
+          <div class="skeleton-box" style="height:18px; width:70%; margin-bottom:8px;"></div>
+          <div class="skeleton-box" style="height:14px; width:50%; margin-bottom:8px;"></div>
+          <div class="skeleton-box" style="height:10px; width:40%;"></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
   // Fetch from Supabase first, use fallback if empty or failed
   let members = await sbFetch('team', 'sort_order.asc');
   if (!members || members.length === 0) {
     members = FALLBACK_TEAM;
   }
-  
-  const grid = document.getElementById('member-grid');
   if (!grid) return;
 
   const delays = ['','reveal-delay-1','reveal-delay-2','reveal-delay-3','reveal-delay-4',''];
@@ -2440,9 +2472,23 @@ async function loadTeam() {
 
 // ── NEWS ──────────────────────────────────────────
 async function loadNews() {
-  const items = await sbFetch('news', 'sort_order.desc');
   const grid  = document.getElementById('news-grid');
-  if (!grid || !items.length) return;
+  if (grid) {
+    grid.innerHTML = Array(4).fill(`
+      <div class="news-card reveal">
+        <div class="skeleton-box" style="height:200px; border-bottom:1px solid var(--border); border-radius:0;"></div>
+        <div class="news-card-body" style="width:100%;">
+          <div class="skeleton-box" style="height:14px; width:30%; margin-bottom:12px;"></div>
+          <div class="skeleton-box" style="height:24px; width:80%; margin-bottom:16px;"></div>
+          <div class="skeleton-box" style="height:14px; width:100%; margin-bottom:8px;"></div>
+          <div class="skeleton-box" style="height:14px; width:90%;"></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  const items = await sbFetch('news', 'sort_order.desc');
+  if (!grid || !items.length) { if(grid) grid.innerHTML = ''; return; }
 
   const newHTML = items.map(item => {
     const imgs  = item.images || [];
@@ -2473,7 +2519,7 @@ async function loadNews() {
       </div>`;
   }).join('');
 
-  grid.insertAdjacentHTML('afterbegin', newHTML);
+  grid.innerHTML = newHTML;
 
   // Init gallery dots for newly added cards
   grid.querySelectorAll('.news-card').forEach(card => {
@@ -2503,8 +2549,17 @@ async function loadNews() {
 
 // ── AWARDS ────────────────────────────────────────
 async function loadAwards() {
-  const items = await sbFetch('awards', 'sort_order.desc');
   const grid  = document.getElementById('awards-grid');
+  if (grid) {
+    grid.innerHTML = Array(2).fill(`
+      <div style="margin-bottom:32px; width:100%;">
+        <div class="skeleton-box" style="height:14px; width:20%; margin-bottom:14px;"></div>
+        ${Array(2).fill(`<div class="aw" style="border-left-color:#e2e8f0; width:100%;"><div class="skeleton-box" style="height:16px; width:70%; margin-bottom:8px;"></div><div class="skeleton-box" style="height:14px; width:40%;"></div></div>`).join('')}
+      </div>
+    `).join('');
+  }
+
+  const items = await sbFetch('awards', 'sort_order.desc');
   if (!grid) return;
 
   if (!items.length) {
@@ -2685,8 +2740,21 @@ async function loadVacancy() {
 
 // ── ALUMNI ────────────────────────────────────────
 async function loadAlumni() {
-  let items = await sbFetch('alumni', 'sort_order.asc');
   const grid = document.getElementById('alumni-grid');
+  if (grid) {
+    grid.innerHTML = Array(4).fill(`
+      <div class="alum reveal">
+        <div class="alum-avatar skeleton-box" style="min-width:60px;"></div>
+        <div class="alum-info" style="width:100%;">
+          <div class="skeleton-box" style="height:18px; width:60%; margin-bottom:6px;"></div>
+          <div class="skeleton-box" style="height:14px; width:40%; margin-bottom:6px;"></div>
+          <div class="skeleton-box" style="height:12px; width:50%;"></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  let items = await sbFetch('alumni', 'sort_order.asc');
   if (!grid) return;
 
   if (!items || items.length === 0) {
