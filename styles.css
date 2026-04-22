@@ -1502,6 +1502,22 @@ footer {
 .vp-desc {
   font-size: 0.9rem; color: #4a5568;
   line-height: 1.8; margin-bottom: 22px;
+  max-height: 40vh; overflow-y: auto;
+  padding-right: 12px;
+}
+.vp-desc::-webkit-scrollbar {
+  width: 4px;
+}
+.vp-desc::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.03); 
+  border-radius: 4px;
+}
+.vp-desc::-webkit-scrollbar-thumb {
+  background: rgba(13,37,64,0.15); 
+  border-radius: 4px;
+}
+.vp-desc::-webkit-scrollbar-thumb:hover {
+  background: rgba(13,37,64,0.3); 
 }
 .vp-cta {
   display: inline-flex; align-items: center; gap: 9px;
@@ -1598,6 +1614,7 @@ footer {
 /* All hardcoded #4a5568 text (section body, PI desc, timeline) */
 [data-theme="dark"] .section-body,
 [data-theme="dark"] .pi-desc,
+[data-theme="dark"] .vp-desc,
 [data-theme="dark"] .tl-desc,
 [data-theme="dark"] .rc-body p,
 [data-theme="dark"] .news-body,
