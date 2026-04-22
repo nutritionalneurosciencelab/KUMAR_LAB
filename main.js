@@ -718,7 +718,7 @@ async function loadVacancy() {
     const closeBtn = document.getElementById('vp-close');
     const dismiss  = document.getElementById('vp-dismiss');
 
-    if (titleEl) titleEl.textContent = v.title || 'Position Available';
+    if (titleEl) titleEl.textContent = v.title || 'Announcement';
     if (descEl)  descEl.textContent  = v.description || '';
     if (applyEl) applyEl.href        = v.apply_url || 'https://www.nabi.res.in/career.php';
 
