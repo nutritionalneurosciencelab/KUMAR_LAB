@@ -10,9 +10,14 @@ create table if not exists team (
   role text not null default 'Research Scholar',
   fellowship text default '',
   photo_url text default '',
+  writeup text default '',
   sort_order integer default 0,
   created_at timestamptz default now()
 );
+
+-- Migration for existing databases:
+-- alter table team add column if not exists writeup text default '';
+
 
 -- 2. NEWS & EVENTS
 create table if not exists news (

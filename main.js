@@ -451,6 +451,9 @@ async function loadTeam() {
     const photo = m.photo_url
       ? `<img loading="lazy" decoding="async" src="${m.photo_url}" alt="${m.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="init" style="display:none">${ini}</div>`
       : `<div class="init">${ini}</div>`;
+    const writeupHTML = m.writeup
+      ? `<div class="mc-writeup">${m.writeup}</div>`
+      : '';
     return `
       <div class="mc reveal ${delays[i % delays.length]}">
         <div class="mc-photo">${photo}</div>
@@ -458,6 +461,7 @@ async function loadTeam() {
           <div class="mc-name">${m.name}</div>
           <div class="mc-role">${m.role}</div>
           ${m.fellowship ? `<div class="mc-fellowship">${m.fellowship}</div>` : ''}
+          ${writeupHTML}
           ${m.linkedin_url ? `<div class="mc-links" style="margin-top:10px;"><a class="mc-link" href="${m.linkedin_url}" target="_blank">🔗 LinkedIn</a></div>` : ''}
         </div>
       </div>`;

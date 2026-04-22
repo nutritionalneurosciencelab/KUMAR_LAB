@@ -699,6 +699,23 @@ nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
   font-size: 0.74rem; color: var(--muted); margin-bottom: 10px;
   font-family: 'JetBrains Mono', monospace;
 }
+.mc-writeup {
+  font-size: 0.76rem; color: #5a6a7e;
+  line-height: 1.65; margin: 8px 0 6px;
+  font-style: italic;
+  padding: 8px 10px;
+  border-top: 1px solid var(--border);
+  position: relative;
+  text-align: left;
+}
+.mc-writeup::before {
+  content: '\201C';
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem; font-style: normal;
+  color: rgba(26,111,212,0.25);
+  line-height: 0; vertical-align: -0.4em;
+  margin-right: 2px;
+}
 .mc-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
 .mc-link {
   display: inline-flex; align-items: center; gap: 4px;
